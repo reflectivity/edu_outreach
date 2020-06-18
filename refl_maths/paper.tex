@@ -288,6 +288,7 @@ This means it is an $i\times i$ matrix, where $i$ is again the number of model p
 If the parameter distribution is Gaussian in shape then the second derivative at the Gaussian maximum will give the variance of that distribution. 
 Therefore, when these gradient approaches are used, the Hessian matrix is calculated and the diagonal of that matrix gives the uncertainty in each of the parameters. 
 The off-diagonal elements contain information about the covariance between different parameters, however this is rarely leveraged and the covariances are taken to be negligible. 
+Additionally, we note that often the Hessian is not calculated in an optimisation so the Jacobian matrix (the first derivative analogue of the Hessian) is used to estimate Hessian matrix. 
 
 The determination of parameter uncertainties from the Hessian matrix is dependent on two major assumptions about the parameter space:
 \begin{enumerate}
