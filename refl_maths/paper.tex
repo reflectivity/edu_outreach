@@ -248,6 +248,7 @@ Here, the likelihood is used to compare between subunits from the offspring or p
 \end{equation}
 %
 where, the $*, j$ subscript notation indicates all objects from the population, $j$.
+Following the use of the differential evolution algorithm, typically a more common (gradient-based) approach is used to ensure that the likelihood has been maximised within the space identified by the differential evolution.
 
 The differential evolution algorithm can be seen in action applied to the negative two-dimensional Ackley function \cite{ackley_connectionist_1987}, in Figure~\ref{fig:ackley}.
 The Ackley function is a common function used in the assessment of global optimisation functions. This is due to there being a large number of local minima and only a single global minimum to this function. Here, we want to maximise the value, so the negative Ackley function is used.
@@ -256,15 +257,45 @@ While this does not offer a clear example of this algorithm's application to ref
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{ackley}
-    \caption{An example of a differential evolution algorithm applied to the negative of an Ackely function. In this implementation $k_m=0.5$ and $k_r=0.5$. Each line represents a different candidate solution. The optimisation was stopped after 100 iterations had run.}
+    \caption{An example of a differential evolution algorithm applied to the negative of an Ackley function. In this implementation $k_m=0.5$ and $k_r=0.5$. Each line represents a different candidate solution. The optimisation was stopped after 100 iterations had run.}
     \label{fig:ackley}
 \end{figure}
 %
 
-\section{Uncertainty sampling}
+\section{Uncertainty quantification}
 Reflectometry measurements offer an average description of the out of place structure of a material. 
-This means that it is pragmatic to describe the uncertainties in the values of our model parameters in some fashion. 
-This is often performed using Markov-chain Monte Carlo (MCMC), which is a methodology used to sample the posterior probability distribution for each of our parameters \cite{sivia_data_2006}.
+This means that it is pragmatic to describe the uncertainties in the values of our model parameters in some fashion.
+In this section, we will introduce two potential methods to determine the uncertainty on a set of model parameters. 
+
+The first is computationally straightforward and is substantially more common. 
+This is where the parameter uncertainties are found from the Hessian matrix of the optimisation space, where the uncertainties are the square-root of the matrix diagonal. 
+The previous sentence introduced a lot a terminology that may not be familiar, however we shall work through it slowly. 
+The above optimisation method, differential evolution, is what is referred to as a stochastic method, where steps taken arise from a randomly determined process. 
+However, another common type of optimisation methods are known as gradient methods, where the gradient of the optimisation space at a given point is calculated and this is used to determine the next position. 
+Consider maximising the likelihood for a reflectometry model fit, you would like to make steps that increase the likelihood to reach the maximum, so calculating the gradient will be able to tell you in which direction to travel. 
+
+The Hessian matrix, $H$ describes the curvature of optimisation criteria, the likelihood, with respect to each of the model parameters, and it is frequently used in the gradient-based optimisation methods. 
+This means it is an $i\times i$ matrix, where $i$ is again the number of model parameters, $\theta$, for a two parameter model, this would look like this,
+%
+\begin{equation}
+    H = 
+    \begin{bmatrix}
+        \dfrac{\partial^2 \mathcal{L}}{\partial \theta_{1}^2} & \dfrac{\partial^2 \mathcal{L}}{\partial \theta_1 \theta_2} \\
+        \dfrac{\partial^2 \mathcal{L}}{\partial \theta_2 \theta_1} & \dfrac{\partial^2 \mathcal{L}}{\partial \theta_{2}^2}
+    \end{bmatrix}.
+\end{equation}
+%
+If the parameter distribution is Gaussian in shape then the second derivative at the Gaussian maximum will give the variance of that distribution. 
+Therefore, when these gradient approaches are used, the Hessian matrix is calculated and the diagonal of that matrix gives the uncertainty in each of the parameters. 
+The off-diagonal elements contain information about the covariance between different parameters, however this is rarely leveraged and the covariances are taken to be negligible. 
+
+The determination of parameter uncertainties from the Hessian matrix is dependent on two major assumptions about the parameter space:
+\begin{enumerate}
+    \item {the parameters are normally distributed with a single maximum,}
+    \item {the covariance between the parameters is negligible.}
+\end{enumerate}
+However, this may not always be the case \cite{mccluskey_bayesian_2019}, therefore is it necessary to use methods to completely describe the parameter probability distribution.
+One such method for this is Markov-chain Monte Carlo (MCMC), which samples the posterior probability distribution for each of our parameters to obtain an analytical description \cite{sivia_data_2006}.
 Typically, MCMC is used on already optimised solutions to a particular problem, is in reflectometry analysis it is usually applied after the differential evolution has optimised the structure. 
 In addition to being able to quantify the inverse uncertainties (the name given to the uncertainties in the model parameters) MCMC also offers a more complete understanding of the correlations between different parameters \cite{gilks_markov_1995}, which is particularly important in the ill-posed reflectometry analysis. 
 
@@ -316,6 +347,10 @@ We have looked at how reflectometry is calculated from a layer model description
 Then we have discussed the importance of the differential evolution algorithm in reflectometry analysis and detailed the operation of this algorithm. 
 Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty quantification for model-dependent analysis, with particular importance for reflectivity discussed. 
 While not exhaustive, I hope that this document will give you the confidence in understanding to look in more detail into how the analysis of reflectometry measurements are performed.
+
+\section*{Acknowledgements}
+ARM is supported by the Ada Lovelace Centre – a joint initiative between the Science and Technology Facilities Council (as part of UK Research and Innovation), Diamond Light Source, and the UK Atomic Energy Authority.
+
 
 \bibliography{handout}
 \bibliographystyle{unsrtnat}
