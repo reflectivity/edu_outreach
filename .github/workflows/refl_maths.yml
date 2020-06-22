@@ -13,10 +13,10 @@ jobs:
       - name: Testing
         uses: snakemake/snakemake-github-action@v1.9.0
         with:
-        directory: 'refl_maths'
-        snakefile: 'Snakefile'
-        args: '--cores 1 '
-        stagein: 'cd refl_maths'
+          directory: 'refl_maths'
+          snakefile: 'Snakefile'
+          args: '--cores 1 '
+          stagein: 'cd refl_maths'
       - name: Commit
         uses: EndBug/add-and-commit@v4
         with:
