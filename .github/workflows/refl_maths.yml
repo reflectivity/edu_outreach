@@ -17,7 +17,7 @@ jobs:
           snakefile: 'Snakefile'
           args: '--cores 1 '
           stagein: |
-            pip install matplolib emcee numpy scipy
+            pip install --user matplotlib emcee numpy scipy
             cd refl_maths
       - name: Commit
         uses: EndBug/add-and-commit@v4
