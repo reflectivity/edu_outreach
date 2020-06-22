@@ -195,7 +195,7 @@ ax3.plot(q3, rm2, c=list(_fig_params.TABLEAU)[2], zorder=10, label='{:.2e}'.form
 ax3.set_yscale('log')
 ax3.set_xlabel(r"$q$/Å$^{-1}$")
 ax3.set_ylabel(r"$R(q)$")
-ax3.legend(title=r'$\ln(\hat{\mathcal{L}})$', title_fontsize=22)
+ax3.legend(title=r"$\ln(\hat{\mathcal{L}})$")
 ax3.set_xlim(0, 0.3)
 
 plt.savefig('likelihood.pdf')
