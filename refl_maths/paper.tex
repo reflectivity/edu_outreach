@@ -189,10 +189,10 @@ However, we will introduce the basics of optimisation and discuss the most commo
 
 When we measure a reflectometry profile, we measure the reflected intensity, and some uncertainty in that measurement, at discrete points in the wavevector, $R(q) \pm \delta R(q)$. 
 Using the recursive method discussed above, we can calculate a model reflected intensity at these same $q$ values, $R_m(q)$. 
-We then aim to reduce the difference between the measured and modelled reflected intensity through the optimisation (maximisation) of the likelihood, $\mathcal{L}$, 
+We then aim to reduce the difference between the measured and modelled reflected intensity through the optimisation (maximisation) of the likelihood, $L$, 
 %
 \begin{equation}
-    \mathcal{L} = \exp{\bigg\{-0.5 \sum_{q=q_{\text{min}}}^{q_{\text{max}}} \bigg[\frac{R(q) - R_m(q)}{\delta R(q)}\bigg]^2 + \ln[2\pi \delta R(q)]\bigg\}}.
+    L = \exp{\bigg\{-0.5 \sum_{q=q_{\text{min}}}^{q_{\text{max}}} \bigg[\frac{R(q) - R_m(q)}{\delta R(q)}\bigg]^2 + \ln[2\pi \delta R(q)]\bigg\}}.
 \end{equation}
 %
 This parameter described the probability that the model $m$ accurately describes the observed reflectometry data. 
@@ -245,7 +245,7 @@ Here, the likelihood is used to compare between subunits from the offspring or p
 \begin{equation}
     \mathbf{p}_{*, j} \leftarrow 
     \begin{cases}
-        \mathbf{o}_{*, j} & \text{where } \mathcal{L}_{\mathbf{o}_{*, j}} > \mathcal{L}_{\mathbf{p}_{*, j}},\\
+        \mathbf{o}_{*, j} & \text{where } L_{\mathbf{o}_{*, j}} > L_{\mathbf{p}_{*, j}},\\
         \mathbf{p}_{*, j} & \text{otherwise},
     \end{cases}
 \end{equation}
@@ -283,8 +283,8 @@ This means it is an $i\times i$ matrix, where $i$ is again the number of model p
 \begin{equation}
     H = 
     \begin{bmatrix}
-        \dfrac{\partial^2 \mathcal{L}}{\partial \theta_{1}^2} & \dfrac{\partial^2 \mathcal{L}}{\partial \theta_1 \theta_2} \\
-        \dfrac{\partial^2 \mathcal{L}}{\partial \theta_2 \theta_1} & \dfrac{\partial^2 \mathcal{L}}{\partial \theta_{2}^2}
+        \dfrac{\partial^2 L}{\partial \theta_{1}^2} & \dfrac{\partial^2 L}{\partial \theta_1 \theta_2} \\
+        \dfrac{\partial^2 L}{\partial \theta_2 \theta_1} & \dfrac{\partial^2 L}{\partial \theta_{2}^2}
     \end{bmatrix}.
 \end{equation}
 %
@@ -303,17 +303,17 @@ One such method for this is Markov-chain Monte Carlo (MCMC), which samples the p
 Typically, MCMC is used on already optimised solutions to a particular problem, is in reflectometry analysis it is usually applied after the differential evolution has optimised the structure. 
 In addition to being able to quantify the inverse uncertainties (the name given to the uncertainties in the model parameters) MCMC also offers a more complete understanding of the correlations between different parameters \cite{gilks_markov_1995}, which is particularly important in the ill-posed reflectometry analysis. 
 
-Once an optimised set of model parameters, $\theta$, are obtained which maximise the likelihood, $\mathcal{L}$, some random perturbation is applied, 
+Once an optimised set of model parameters, $\theta$, are obtained which maximise the likelihood, $L$, some random perturbation is applied, 
 %
 \begin{equation}
     \Theta = \theta + aR,
 \end{equation}
 %
 where $R$ is some normally distributed number centered on \num{0} with a standard distribution of \num{1} and $a$ is the step size. 
-A new $\mathcal{L}$ is found for $\Theta$ and the probability that this transition is will occur is found, 
+A new $L$ is found for $\Theta$ and the probability that this transition is will occur is found, 
 %
 \begin{equation}
-    p = \exp{\bigg[\frac{\mathcal{L}(\Theta) - \mathcal{L}(\theta)}{2}\bigg]}. 
+    p = \exp{\bigg[\frac{L(\Theta) - L(\theta)}{2}\bigg]}. 
 \end{equation}
 %
 This probability is then compared with a uniformly distributed random number from \num{0} to \num{1}, $n$,
