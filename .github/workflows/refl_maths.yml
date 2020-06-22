@@ -6,8 +6,6 @@ jobs:
     name: Create Paper
     runs-on: ubuntu-latest
     steps:
-      - name: Get pdflatex
-        run: sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-publishers texlive-science-doc texlive-science
       - name: Checkout
         uses: actions/checkout@v1
       - name: Testing
@@ -17,6 +15,7 @@ jobs:
           snakefile: 'Snakefile'
           args: '--cores 1 '
           stagein: |
+            sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-publishers texlive-science-doc texlive-science
             pip install --user matplotlib emcee numpy scipy
             cd refl_maths
       - name: Commit
