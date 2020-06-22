@@ -15,7 +15,7 @@ jobs:
           snakefile: 'Snakefile'
           args: '--cores 1 '
           stagein: |
-            sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-publishers texlive-science-doc texlive-science
+            conda install texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-publishers texlive-science-doc texlive-science
             pip install --user matplotlib emcee numpy scipy
             cd refl_maths
       - name: Commit
