@@ -3,7 +3,7 @@
 Some comments from @andyfaff
 
 - [x] Explanation of parameter uncertainty determination
-- [ ] How to use roughnesses **properly**
+- [x] How to use roughnesses **properly**
 - [ ] Roughness implementation
 - [ ] Sensitivity limits (e.g. if film is 99% hydrated you might not see it?)
 - [ ] Resolution
