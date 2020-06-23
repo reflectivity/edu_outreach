@@ -21,7 +21,7 @@ jobs:
       - name: Commit
         uses: EndBug/add-and-commit@v4
         with:
-          add: refl_maths/paper.pdf
+          add: refl_maths/*.pdf
           author_name: Github Actions
           author_email: andrew.mccluskey@diamond.ac.uk
           message: "Paper Built"
