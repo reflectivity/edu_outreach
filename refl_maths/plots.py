@@ -396,13 +396,14 @@ fig = plt.figure(figsize=(10, 3.304*2.421))
 gs = gridspec.GridSpec(2, 1)
 ax1 = plt.subplot(gs[0])
 ax2 = plt.subplot(gs[1])
-for i in range(5, 10, 2):
+for i in range(3, 9, 2):
     layer2 = sld2(10, i)
     structure = Structure(layer1 | layer2 | layer3)
 
     ax1.plot(*structure.sld_profile())
     ax2.plot(*structure.sld_profile())
 ax2.set_ylim(1.6, 2.6)
+ax2.set_xlim(5, 15)
 ax1.axhline(sld3.real, color='k', alpha=0.3)
 ax2.axhline(sld3.real, color='k', alpha=0.3)
 ax1.set_xlabel(r'$z$/Å')
@@ -412,7 +413,8 @@ ax1.text(0.05, 0.95, '(a)', horizontalalignment='left',
 ax2.set_xlabel(r'$z$/Å')
 ax2.set_ylabel(r'$\rho(z)$/Å$^{-2}$')
 ax2.text(0.05, 0.95, '(b)', horizontalalignment='left',
-         verticalalignment='top', transform=ax1.transAxes)
+         verticalalignment='top', transform=ax2.transAxes)
+plt.tight_layout()
 plt.savefig("roughness.pdf")
 plt.close()
 
