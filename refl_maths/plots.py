@@ -246,8 +246,8 @@ def differential_evolution(population, f, km, kr, bounds, max_iter):
         i += 1
     return history
 
-startx1 = np.random.uniform(-40, 40, 6)
-startx2 = np.random.uniform(-40, 40, 6)
+startx1 = np.random.uniform(-40, 40, 8)
+startx2 = np.random.uniform(-40, 40, 8)
 
 def ackley(x):
     a = 20
