@@ -5,6 +5,8 @@ import _fig_params
 
 np.random.seed(2)
 
+c = _fig_params.colors
+
 z = np.linspace(-20, 20, 200)
 rho = np.zeros_like(z)
 rho[np.where(z >= 0)] = 2.074e-6
@@ -25,20 +27,20 @@ ax1 = fig.add_subplot(spec[0, 0])
 ax2 = fig.add_subplot(spec[0, 1])
 ax3 = fig.add_subplot(spec[1, :])
 
-ax1.plot(z, rho, c=list(_fig_params.TABLEAU)[0])
+ax1.plot(z, rho, c=c[0])
 ax1.set_xlabel(r'$z$/Å')
 ax1.set_ylabel(r'$\rho(z)$/Å$^{-2}$')
 ax1.text(0.05, 0.95, '(a)', horizontalalignment='left',
          verticalalignment='top', transform=ax1.transAxes)
 
-ax2.plot(z_dash, rho_dash, c=list(_fig_params.TABLEAU)[0])
+ax2.plot(z_dash, rho_dash, c=c[0])
 ax2.set_xlabel(r"$z$/Å")
 ax2.set_ylabel(r"$\rho'(z)$/Å$^{-3}$")
 ax2.text(0.05, 0.95, '(b)', horizontalalignment='left',
          verticalalignment='top', transform=ax2.transAxes)
 
-ax3.plot(q, r, c=list(_fig_params.TABLEAU)[0])
-ax3.axhline(1, c=list(_fig_params.TABLEAU)[1])
+ax3.plot(q, r, c=c[0])
+ax3.axhline(1, c=c[1])
 ax3.set_yscale('log')
 ax3.set_xlabel(r"$q$/Å$^{-1}$")
 ax3.set_ylabel(r"$R(q)$")
@@ -147,10 +149,10 @@ spec = gridspec.GridSpec(ncols=2, nrows=1, figure=fig)
 ax3 = fig.add_subplot(spec[0, :])
 
 q2 = np.linspace(0, 0.05, 1000)
-ax3.plot(q, r, c=list(_fig_params.TABLEAU)[0])
+ax3.plot(q, r, c=c[0])
 layers = np.array([[0, 0, 0, 0, 0], [0, 2.074, 0, 0, 0]])
-ax3.plot(q2, abeles(q2, layers), c=list(_fig_params.TABLEAU)[2], zorder=10)
-ax3.axhline(1, c=list(_fig_params.TABLEAU)[1])
+ax3.plot(q2, abeles(q2, layers), c=c[2], zorder=10)
+ax3.axhline(1, c=c[1])
 ax3.set_yscale('log')
 ax3.set_xlabel(r"$q$/Å$^{-1}$")
 ax3.set_ylabel(r"$R(q)$")
@@ -188,9 +190,9 @@ Lm2 = -0.5 * np.sum(np.square((r-rm2)/dr) + np.log(2 * np.pi * dr))
 rm = abeles_build(q3, *popt)
 rm2 = abeles_build(q3, *(np.array(popt) + rr))
 
-ax3.errorbar(q2, r, dr, c=list(_fig_params.TABLEAU)[0], zorder=10, marker='o', ls='')
-ax3.plot(q3, rm, c=list(_fig_params.TABLEAU)[1], zorder=10, label='{:.2e}'.format(Lm))
-ax3.plot(q3, rm2, c=list(_fig_params.TABLEAU)[2], zorder=10, label='{:.2e}'.format(Lm2))
+ax3.errorbar(q2, r, dr, c=c[0], zorder=10, marker='o', ls='')
+ax3.plot(q3, rm, c=c[1], zorder=10, label='{:.2e}'.format(Lm))
+ax3.plot(q3, rm2, c=c[2], zorder=10, label='{:.2e}'.format(Lm2))
 
 ax3.set_yscale('log')
 ax3.set_xlabel(r"$q$/Å$^{-1}$")
@@ -244,8 +246,8 @@ def differential_evolution(population, f, km, kr, bounds, max_iter):
         i += 1
     return history
 
-startx1 = np.random.uniform(-40, 40, 8)
-startx2 = np.random.uniform(-40, 40, 8)
+startx1 = np.random.uniform(-40, 40, 6)
+startx2 = np.random.uniform(-40, 40, 6)
 
 def ackley(x):
     a = 20
@@ -282,7 +284,7 @@ for i in range(route.shape[2]):
         route[:, 1, i],
         marker="o",
         ms=4,
-        c=list(_fig_params.TABLEAU)[i + 1],
+        c=c[i + 1],
     )
 ax.set_ylabel(r"$x_1$")
 ax.set_xlabel(r"$x_2$")
@@ -334,7 +336,7 @@ gs = gridspec.GridSpec(3, 2)
 
 ax1 = plt.subplot(gs[2, :])
 ax1.errorbar(
-    x, y, marker="o", ls="", yerr=dy, c=list(_fig_params.TABLEAU)[0], zorder=10
+    x, y, marker="o", ls="", yerr=dy, c=c[0], zorder=10
 )
 
 choice = np.random.randint(low=0, high=history.shape[0], size=100)
@@ -352,10 +354,10 @@ for i in choice:
             ],
         ),
         alpha=0.07,
-        c=list(_fig_params.TABLEAU)[2],
+        c=c[2],
     )
 
-ax1.plot(x2, gaussian(x2, popt), c=list(_fig_params.TABLEAU)[1])
+ax1.plot(x2, gaussian(x2, popt), c=c[1])
 
 ax2 = plt.subplot(gs[0, 0])
 ax2.hist(history[:, 0], bins=20, density=True, histtype="stepfilled")
