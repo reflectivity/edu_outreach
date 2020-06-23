@@ -382,3 +382,23 @@ ax1.set_ylim(0, 0.55)
 plt.tight_layout()
 plt.savefig("mcmc.pdf", bbox_inches='tight', pad_inches=0.1)
 plt.close()
+
+from refnx.reflect import Structure, SLD
+
+sld1 = SLD(0, 0)
+sld2 = SLD(6.335, 0)
+sld3 = SLD(2.074, 0)
+
+layer1 = sld1(0, 0)
+layer3 = sld3(10, 2)
+
+for i in range(5, 10, 2):
+    layer2 = sld2(10, i)
+    structure = Structure(layer1 | layer2 | layer3)
+
+    plt.plot(*structure.sld_profile(), label='{} Å'.format(i))
+plt.axhline(sld3.real, color='k', alpha=0.3)
+plt.legend(title='Roughness')
+plt.savefig("roughness.pdf")
+plt.close()
+
