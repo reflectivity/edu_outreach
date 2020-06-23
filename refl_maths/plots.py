@@ -390,9 +390,9 @@ sld2 = SLD(6.335, 0)
 sld3 = SLD(2.074, 0)
 
 layer1 = sld1(0, 0)
-layer3 = sld3(10, 2)
+layer3 = sld3(10, 0)
 
-fig = plt.figure(figsize=(10, 5.1625*2.2))
+fig = plt.figure(figsize=(10, 3.304*2.421))
 gs = gridspec.GridSpec(2, 1)
 ax1 = plt.subplot(gs[0])
 ax2 = plt.subplot(gs[1])
@@ -405,6 +405,14 @@ for i in range(5, 10, 2):
 ax2.set_ylim(1.6, 2.6)
 ax1.axhline(sld3.real, color='k', alpha=0.3)
 ax2.axhline(sld3.real, color='k', alpha=0.3)
+ax1.set_xlabel(r'$z$/Å')
+ax1.set_ylabel(r'$\rho(z)$/Å$^{-2}$')
+ax1.text(0.05, 0.95, '(a)', horizontalalignment='left',
+         verticalalignment='top', transform=ax1.transAxes)
+ax2.set_xlabel(r'$z$/Å')
+ax2.set_ylabel(r'$\rho(z)$/Å$^{-2}$')
+ax2.text(0.05, 0.95, '(b)', horizontalalignment='left',
+         verticalalignment='top', transform=ax1.transAxes)
 plt.savefig("roughness.pdf")
 plt.close()
 
