@@ -48,7 +48,7 @@ MASTER_FORMATTING = {
     "font.size": FONTSIZE,
     "font.family": "sans-serif",
     # 'font.serif' : 'Source Serif Pro',
-    #"text.usetex": True,
+    "text.usetex": False,
     "savefig.bbox": "tight",
     "axes.facecolor": LIGHT_GREY,
     "axes.labelpad": 10.0,
