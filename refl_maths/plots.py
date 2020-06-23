@@ -392,13 +392,15 @@ sld3 = SLD(2.074, 0)
 layer1 = sld1(0, 0)
 layer3 = sld3(10, 2)
 
+fig = plt.figure(figsize=(10, 3.304*2))
+ax = fig.add_subplot(111)
 for i in range(5, 10, 2):
     layer2 = sld2(10, i)
     structure = Structure(layer1 | layer2 | layer3)
 
-    plt.plot(*structure.sld_profile(), label='{} Å'.format(i))
-plt.axhline(sld3.real, color='k', alpha=0.3)
-plt.legend(title='Roughness')
+    ax.plot(*structure.sld_profile(), label='{} Å'.format(i))
+ax.axhline(sld3.real, color='k', alpha=0.3)
+ax.legend(title='Roughness')
 plt.savefig("roughness.pdf")
 plt.close()
 
