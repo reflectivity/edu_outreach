@@ -12,7 +12,7 @@ Some comments from @andyfaff
 
 Some comments from @timsnow
 
-- [ ] After eqn. 3 - is nuclear scattering length density or neutron SLD a more common turn of phrase? (You use SLD in figure 1's caption text, for example)
+- [x] After eqn. 3 - is nuclear scattering length density or neutron SLD a more common turn of phrase? (You use SLD in figure 1's caption text, for example)
 - [x] Figure 1's caption could do with clarifying to highlight that all three plots are representations of different aspects of the kinematic approach
 - [x] Below eqn 5, remove exclamation mark in the body text, it's oddly out of place; yes it's impossible but it's not like the world ended
 - [ ] Whilst potentially beyond the scope of the article (but maybe only just) is it worth mentioning something about contrast measurements and co-refinement in global optimisation?
