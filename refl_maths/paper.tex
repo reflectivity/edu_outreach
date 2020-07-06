@@ -146,10 +146,10 @@ From the Fresnel equation coefficient and phase factor, a characteristic matrix 
 %
 \begin{equation}
     M_n = 
-    \begin{matrix}
+    \begin{bmatrix}
         \exp{\beta_n} & r_{n,n+1}\exp{-\beta_n} \\ 
         r_{n,n+1}\exp{\beta_n} & \exp{-\beta_n}
-    \end{matrix},
+    \end{bmatrix},
 \end{equation}
 %
 and the resultant matrix for a given $q$-vector, $B(q)$ is found from the product sum of the matrices from each layer, 
@@ -158,7 +158,8 @@ and the resultant matrix for a given $q$-vector, $B(q)$ is found from the produc
     B(q) = \prod_{n=0}^{n_{\text{max}}}{M_n}.
 \end{equation}
 %
-The final model reflected intensity is found from the following elements of the resultant matrix, 
+The characteristic matrix for each layer describes the reflected and refracted radiation intensity, so the product sum is able to describe the total reflected intensity. 
+In particular, this is given by the following elements of the resultant matrix,
 %
 \begin{equation}
     R(q) = \frac{B_{1,2}(q)}{B_{1,1}(q)}. 
@@ -208,7 +209,10 @@ Using the recursive method discussed above, we can calculate a model reflected i
 We then aim to reduce the difference between the measured and modelled reflected intensity through the optimisation (maximisation) of the likelihood, $L$, 
 %
 \begin{equation}
-    L = \exp{\bigg\{-0.5 \sum_{q=q_{\text{min}}}^{q_{\text{max}}} \bigg[\frac{R(q) - R_m(q)}{\delta R(q)}\bigg]^2 + \ln[2\pi \delta R(q)]\bigg\}}.
+    \begin{aligned}
+        L & = \exp{\bigg\{- \frac{1}{2} \sum_{q=q_{\text{min}}}^{q_{\text{max}}} \bigg[\frac{R(q) - R_m(q)}{\delta R(q)}\bigg]^2 \\
+        & + \ln[2\pi \delta R(q)]\bigg\}}.
+    \end{aligned}
 \end{equation}
 %
 This parameter described the probability that the model $m$ accurately describes the observed reflectometry data. 
@@ -367,6 +371,13 @@ We have looked at how reflectometry is calculated from a layer model description
 Then we have discussed the importance of the differential evolution algorithm in reflectometry analysis and detailed the operation of this algorithm. 
 Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty quantification for model-dependent analysis, with particular importance for reflectivity discussed. 
 While not exhaustive, I hope that this document will give you the confidence in understanding to look in more detail into how the analysis of reflectometry measurements are performed.
+
+\section*{Author Contributions}
+ARM wrote the first draft of this text, and ARJN and TS offered input on additional content to cover and clarifications to include. 
+
+
+proposed, implemented, and applied the Bayesian model comparison framework, with input from T.A., J.F.K.C. and T.S.; J.F.K.C. and T.S. sourced funding; A.R.M. wrote the manuscript, with input from all authors.
+
 
 \section*{Acknowledgements}
 ARM is supported by the Ada Lovelace Centre – a joint initiative between the Science and Technology Facilities Council (as part of UK Research and Innovation), Diamond Light Source, and the UK Atomic Energy Authority.
