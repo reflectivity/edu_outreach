@@ -21,4 +21,4 @@ Some comments from @timsnow
 
 Some comments from Luke Clifton
 
-- [ ] One thing is I don’t understand how you go from equation 10 to equation 11. I maybe being thick but B = the product summation of M across all layer interfaces (Mn). Yet in equation 10 B1,2 / B1,1 = R(Q).
+- [x] One thing is I don’t understand how you go from equation 10 to equation 11. I maybe being thick but B = the product summation of M across all layer interfaces (Mn). Yet in equation 10 B1,2 / B1,1 = R(Q).
