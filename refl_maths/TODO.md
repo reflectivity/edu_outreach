@@ -9,7 +9,7 @@ Some comments from @andyfaff
 - [x] Explanation of parameter uncertainty determination
 - [x] How to use roughnesses **properly**
 - [x] Roughness implementation
-- [ ] Sensitivity limits (e.g. if film is 99% hydrated you might not see it?)
+- [ ] Sensitivity limits (e.g. if film is 99% hydrated you might not see it?) -- (from @arm61 I am not really sure how best to fit this in, as the focus it on the mathematics)
 - [x] Resolution
 - [ ] Perhaps discussion of differential evolution is not necessary
 
