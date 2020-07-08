@@ -1,5 +1,9 @@
 # TODO
 
+Comments from @arm61
+
+- [ ] Turn figure 2 into a matplotlib generated image (so that it matches the others)
+
 Some comments from @andyfaff
 
 - [x] Explanation of parameter uncertainty determination
