@@ -11,6 +11,12 @@
 \usepackage[separate-uncertainty=true]{siunitx}
 \usepackage{mhchem}
 
+\newcommand{\rmd}{\rm{d}}
+\newcommand{\diff}[2]{\frac{\rmd#1}{\rmd#2}}
+\newcommand{\acf}{\rm{ACF}}
+\newcommand{\angstrom}{\rm{\AA}}
+\newcommand{\scinot}[2]{ {#1} \times 10^{#2} }
+
 \begin{document}
 
 \title{A tutorial on the model-dependent analysis of neutron and X-ray reflectometry}% Force line breaks with \\
@@ -26,6 +32,9 @@
 \author{Tim Snow}
   \affiliation{Diamond Light Source, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot, OX11 0DE, UK}
   \affiliation{School of Chemistry, University of Bristol, Bristol, BS8 1TS, UK}
+\author{Juan M. Carmona Loaiza}
+  \affiliation{J\"ulich Centre for Neutron Science (JCNS) at Heinz Maier-Leibnitz Zentrum (MLZ).
+	Lichtenbergstraße 1, 85748 Garching, Germany.}
 
 \collaboration{Open Reflectometry Standards Organisation}%\noaffiliation
 
@@ -208,6 +217,92 @@ For each $q$-value in the unsmeared data, a Gaussian function is produced which 
 Typically, this convolvutional smearing is included in the reading of the experimental data. 
 However, the resolution function used by a given software package may not be an accurate description of that from the instrument, therefore, we recommend discussing this with the members of instrument staff. 
 More information about the resolution function can be found in the work of van Well and Fredrikze \cite{vanwell_resolution_2005} and Nelson and Dewhurst \cite{nelson_towards_2013,nelson_towards_2014}
+
+%%%%
+\section{Ill posedness - the phase problem}
+
+Figure \ref{fig:phase_problem_sld} shows two hypothetical samples of the same total thickness,
+consisting of one and two layers, deposited on a substrate with
+$\rho_s = \scinot{2.07}{-6} \angstrom^{-2}$. Even though the SLD depth profiles are distinctly
+different, the resultant reflectivity curves are virtually identical,
+with only a slight discrepancy at the first minimum. This ambiguity,
+known as \textit{the phase problem}, is
+an example of the information lost in diffraction experiments due
+to the inability of measuring the phase of the scattered wave
+--Notice that equation \ref{equ:kine} involves a modulus-squared.
+
+\begin{figure}
+    \includegraphics[width=0.49\textwidth]{phase_problem_SLD.pdf} 
+    \caption{Two different samples $\rho_{1,2}(z)$ deposited on the same substrate $\rho_s$ (top panel)
+    are indistinguishable from one another by looking only at their reflectivity curve $R(q)$
+    (bottom panel).}
+    \label{fig:phase_problem_sld}
+\end{figure}
+
+An heuristic explanation for the phase problem
+can be built in terms of the auto-correlation function of $\rmd\rho/\rmd z$, which gives a
+real-space representation of the information contained in the reflectivity pattern:
+
+\begin{equation}
+    \begin{split}
+        \acf_{\rho'}(z) & = \int_{-\infty}^{\infty} \rho'(z)^* \, \rho'(z + \xi) \, \rmd \xi \\
+                        & = \int_{-\infty}^{\infty} \left| \widehat{\rho'}(q)  \right|^{2} \, \rm{e}^{i\,q\,z} \, \rmd q,
+    \end{split}
+    \label{equ:acf}
+\end{equation}
+
+\noindent where the hat $\widehat{[]}$ indicates a Fourier transform, the star $[]^*$ a complex conjugate
+and the prime $[]'$ a derivative. 
+
+\begin{figure}
+    \includegraphics[width=0.49\textwidth]{phase_problem_ACF.pdf}
+    \caption{Top panel: the derivatives of the two hypothetical SLD profiles discussed, $\rho_{1,2}'(z)$, are
+    scaled $\delta$ functions peaking at the interfaces between SLD layers. Bottom panel: In contrast,
+    the autocorrelation function, $\acf_{\rho'}(z)$ is almost identical for both samples,
+    peaking at exactly the same locations.}
+    \label{fig:phase_problem_acf}
+\end{figure}
+
+
+As $\rho'(z)$ is purely real and in both examples is only composed of 
+$\delta$ functions, the ACF can be obtained by direct inspection
+(See Figure \ref{fig:phase_problem_acf} and Equation \ref{equ:acf}): 
+
+$\bullet$ At zero lag, there is always full correlation, thus the ACF will have 
+a large positive peak at the origin for both samples.
+
+$\bullet$ For both samples, the interference between the front and back interfaces, at $z = 0$ and
+$z = 200 \angstrom$ respectively, translates into a pair of $\delta$ peaks
+with opposite signs in $\rho'$. Thus, at a 
+$\xi = \pm 200 \angstrom$ lag, the ACF must peak with negative amplitude.
+
+
+$\bullet$ For the two-layer sample, an extra pair of peaks in the ACF could be expected
+at lags of $\xi = \pm 100 \angstrom$; however, since there is a complete cancellation between
+the positive and the negative contributions of the $\delta$ functions at $z = 0$ and $z = 200$,
+the expected extra pair of peaks is absent.
+
+\noindent As the sld profiles of both samples translate into the same ACF,
+it is now not surprising the similarity between their reflectivity curves.
+
+A deeper discussion on the phase problem and some techniques
+that have been developed to tackle it are described in 
+the work by \cite[Majkrzak et al.]{majkrzak_phase_2003}, who give an overview of several
+phase-sensitive experimental methods and claim that any ambiguity in a SLD profile obtained
+by these is a consequence only of the limited $q$ range over which reflectivities can be measured.
+In a similar fashion, \cite{koutsioubas_model_2019} proposes a model-independent method that,
+when applied to multiple solvent contrast data, should lead to reliable
+reconstructions of the interfacial structure without the need for any a priori assumptions.
+
+However, even when the phase problem can be theoretically alleviated, reflectivity curves
+from different SLD profiles may still be close enough to one another to be indistinguishable
+by finite-resolution experiments, effectively keeping the analysis of reflectometry profiles
+in the realm of ill-posed non-invertible problems. As such, reflectometry data analysis demands
+for advanced trial-and-error fitting techniques, the daily bread of experimenters to
+which the following section is devoted.
+
+%%%%
+
 
 \section{Global optimisation}
 The recursive method described above gives an accurate method to obtain a model reflected intensity. 
