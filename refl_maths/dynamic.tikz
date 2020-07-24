@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+    \draw[thick] (0, 0) -- (6, 0);
+    \draw[thick] (0, 1.33) -- (6, 1.33);
+    \draw[<->] (0.133, 0) -- node[left] {$d_1$} (0.133, 1.33);
+    \draw (-1.33, 2) node[left] {$i$} -- (0.67, 1.33);
+    \draw (0.67, 1.33) -- (2.67, 2) node[right] {$r$};
+    \draw (0.67, 1.33) -- (2.67, 0);
+    \draw (2.67, 0) -- (4.67, 1.33);
+    \draw (4.67, 1.33) -- (6.67, 2) node[right] {$r$};
+    \draw (2.67, 0) -- (3, -0.66) node[right] {$t$};
+    \node at (5.5, 0.667) {$n=1$};
+    \node at (5.5, -0.667) {$n=2$};
+    \node at (5.5, 2) {$n=0$};
+\end{tikzpicture}

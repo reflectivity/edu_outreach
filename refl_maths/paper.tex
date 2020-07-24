@@ -10,6 +10,8 @@
 \usepackage{bm}
 \usepackage[separate-uncertainty=true]{siunitx}
 \usepackage{mhchem}
+\usepackage{tikz}
+\usepackage{tikzscale}
 
 \newcommand{\rmd}{\rm{d}}
 \newcommand{\diff}[2]{\frac{\rmd#1}{\rmd#2}}
@@ -125,11 +127,11 @@ This is an alternative methods for calculating the reflected intensity from a mo
 The probing radiation can be either reflected or refracted at the interface between each of the layers. 
 %
 \begin{figure}[t]
-    \includegraphics[width=0.49\textwidth]{refr}
+    \includegraphics[width=\linewidth]{dynamic}
     \caption{A schematic diagram showing the reflected ($r$) and transmitted ($t$) waves when an incident ($i$) wave enters an interface of thickness $d$.}
     \label{fig:refr}
 \end{figure}
-% 
+%
 Figure~\ref{fig:refr} shows the refraction and reflections from a simple two layer system, where layer \num{0} is a vacuum above the sample. 
 It is clear, by analogy to Bragg's law, how the two waves, labelled $r$, could interfere constructively or destructively depending on the thickness of layer \num{1}, $d$.
 
