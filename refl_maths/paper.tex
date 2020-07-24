@@ -199,6 +199,18 @@ This is unphysical, and indicates at an important factor that we should try and 
 \end{figure}
 %
 
+\section{Instrumental resolution}
+In the analysis process, a resolution function associated with the instrumentation the reflectometry measurement was performed on it typically introduced to the model. 
+This ensures greater accuracy in the modelled reflectometry to the experiment. 
+These resolution functions are non-trival to define, however, the majority of reflectometry instruments will be able to offer information about the appropriate function to use. 
+
+Here, we will briefly discuss the introduction of a simple Gaussian resolution function with a constant $\frac{\text{d}q}{q}$. 
+The Gaussian function is centred on a given wavevector, $q$, and has a width of at half maximum of $\text{d}q$.
+For each $q$-value in the unsmeared data, a Gaussian function is produced which is convolved with the unsmeared to produce data that includes some description of the instrumental resolution.
+Typically, this convolvutional smearing is included in the reading of the experimental data. 
+However, the resolution function used by a given software package may not be an accurate description of that from the instrument, therefore, we recommend discussing this with the members of instrument staff. 
+More information about the resolution function can be found in the work of van Well and Fredrikze \cite{vanwell_resolution_2005} and Nelson and Dewhurst \cite{nelson_towards_2013,nelson_towards_2014}
+
 \section{Global optimisation}
 The recursive method described above gives an accurate method to obtain a model reflected intensity. 
 However, this is just the first step in the analysis of a neutron reflectometry dataset. 
@@ -287,13 +299,12 @@ While this does not offer a clear example of this algorithm's application to ref
 \end{figure}
 %
 
-\section{Contrast variation/resonant reflectometry}
-Contrast variation is an important tools in neutron reflectometry \cite{bohm_probing_2019,clifton_self_2019}, while the use of resonant X-ray reflectometry may be utilised in the study of magnetic or ferroelectric materials \cite{kemik_resonant_2011}. 
-These techniques differ significantly in the practical experimental methodology, however there is substantial overlap in their analysis. 
-In theory, both methods enable the ability to measure identical structural samples with variations in the scattering lengths of the components. 
-
-
-
+The analysis of a reflectometry can take advantage of contrast variation, the exact methods of which are covered in other articles \cite{schurtenberger_contrast_2002}.
+However, we note here that, the phrase ``global optimisation'' is often used to describe the analysis of multiple contrasts of the same structure. 
+This is where a single structural model is used for the analysis of multiple measurements, but the scattering length densities are varied based on the particular contrasts under investigation. 
+This method has been used to recover the phase information in neutron reflectometry analysis \cite{majkrzak_exact_1995,majkrzak_first_2000,majkrzak_phase_2003,koutsioubas_model_2019}.
+However, it is also a tool in model-dependent analysis, as it reduces the number of local minimia in the parameter space. 
+Typically, a global (here meaning multiple contrasts) optimisation criteria is used, for example the average or summed likelihood across all of the different measurements and model reflectometries. 
 
 \section{Uncertainty quantification}
 Reflectometry measurements offer an average description of the out of place structure of a material. 
