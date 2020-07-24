@@ -1,4 +1,4 @@
-FIGURES = ['ackley.pdf', 'dyna.pdf', 'kine.pdf', 'likelihood.pdf', 'mcmc.pdf']
+FIGURES = ['ackley.pdf', 'dyna.pdf', 'kine.pdf', 'likelihood.pdf', 'mcmc.pdf', 'phase_problem_ACF.pdf', 'phase_problem_SLD.pdf']
 
 rule target:
     input:
@@ -20,6 +20,7 @@ rule target:
 rule figures:
     input:
         'plots.py',
+        'phase_problem_figs.py',
         '_fig_params.py'
     output:
         FIGURES
@@ -27,5 +28,6 @@ rule figures:
         shell(
             """
             python plots.py
+            python phase_problem_figs.py
             """
         )
