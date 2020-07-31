@@ -1,10 +1,12 @@
-FIGURES = ['ackley.pdf', 'dyna.pdf', 'kine.pdf', 'likelihood.pdf', 'mcmc.pdf', 'phase_problem_ACF.pdf', 'phase_problem_SLD.pdf']
+FIGURES1 = ['ackley.pdf', 'dyna.pdf', 'kine.pdf', 'likelihood.pdf', 'mcmc.pdf']
+FIGURES2 = ['phase_problem_ACF.pdf', 'phase_problem_SLD.pdf']
 
 rule target:
     input:
         'paper.tex',
         'handout.bib',
-        FIGURES
+        FIGURES1, 
+        FIGURES2
     output:
         'paper.pdf'
     run:
@@ -20,14 +22,25 @@ rule target:
 rule figures:
     input:
         'plots.py',
-        'phase_problem_figs.py',
         '_fig_params.py'
     output:
-        FIGURES
+        FIGURES1
     run:
         shell(
             """
             python plots.py
+            """
+        )
+
+rule figures2:
+    input:
+        'phase_problem_figs.py',
+        '_fig_params.py'
+    output:
+        FIGURES2
+    run:
+        shell(
+            """
             python phase_problem_figs.py
             """
         )

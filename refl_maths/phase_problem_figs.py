@@ -21,8 +21,8 @@ def phase_problem_plot(flag):
     layer1 = sld1(0, 0)
     layer3 = sld3(0, 0)
 
-    fig = plt.figure(figsize=(15, 10))
-    gs = gridspec.GridSpec(2, 2)
+    fig = plt.figure(figsize=(10, 7.5))
+    gs = gridspec.GridSpec(2, 1)
     ax1 = plt.subplot(gs[0,0])
     ax2 = plt.subplot(gs[1,0])
     colors = [_fig_params.colors[0], _fig_params.colors[1]]
@@ -55,6 +55,8 @@ def phase_problem_plot(flag):
 
         ax2.set_xlabel(r'$q$/Å')
         ax2.set_ylabel(r'$R(q)$')
+        ax1.text(0.025, 0.95, '(a)', horizontalalignment='left',
+            verticalalignment='top', transform=ax1.transAxes)
 
     else:
         ax1.set_xlabel(r'$z$/Å')
@@ -62,9 +64,9 @@ def phase_problem_plot(flag):
 
         ax2.set_xlabel(r'$z$/Å')
         ax2.set_ylabel("$ \\rm{ACF}_{\\rho'}(z)/ \\AA^{-5}$")
+        ax1.text(0.975, 0.95, '(a)', horizontalalignment='right',
+            verticalalignment='top', transform=ax1.transAxes)
 
-    ax1.text(0.975, 0.95, '(a)', horizontalalignment='right',
-        verticalalignment='top', transform=ax1.transAxes)
     ax2.text(0.975, 0.95, '(b)', horizontalalignment='right',
         verticalalignment='top', transform=ax2.transAxes)
 
