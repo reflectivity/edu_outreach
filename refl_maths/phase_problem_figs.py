@@ -63,6 +63,11 @@ def phase_problem_plot(flag):
         ax2.set_xlabel(r'$z$/Å')
         ax2.set_ylabel("$ \\rm{ACF}_{\\rho'}(z)/ \\AA^{-5}$")
 
+    ax1.text(0.975, 0.95, '(a)', horizontalalignment='right',
+        verticalalignment='top', transform=ax1.transAxes)
+    ax2.text(0.975, 0.95, '(b)', horizontalalignment='right',
+        verticalalignment='top', transform=ax2.transAxes)
+
     plt.tight_layout()
     figfilename = f"phase_problem_{flag}.pdf"
     plt.savefig(figfilename)
