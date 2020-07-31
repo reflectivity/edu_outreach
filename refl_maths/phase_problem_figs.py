@@ -25,7 +25,9 @@ def phase_problem_plot(flag):
     gs = gridspec.GridSpec(2, 2)
     ax1 = plt.subplot(gs[0,0])
     ax2 = plt.subplot(gs[1,0])
-    for i, style in zip([0,1.0], ['k-', 'r:']):
+    colors = [_fig_params.colors[0], _fig_params.colors[1]]
+    ls = ['-', ':']
+    for i in [0,1]:
         sld20 = SLD(6.335 - i, 0)
         sld21 = SLD(6.335 + i, 0)
         layer20 = sld20(100, 0)
@@ -39,12 +41,12 @@ def phase_problem_plot(flag):
         z_acf = np.hstack((-np.flip(z_acf)[:-1], z_acf))
 
         if flag == 'SLD':
-            ax1.plot(z, rho, style)
-            ax2.semilogy(qvals, ReflectModel(structure, dq=0.0).model(qvals), style)
+            ax1.plot(z, rho, color=colors[i], ls=ls[i])
+            ax2.semilogy(qvals, ReflectModel(structure, dq=0.0).model(qvals), color=colors[i], ls=ls[i])
 
         else:
-            ax1.stem(z_,   drho, style, markerfmt=' ', basefmt=style, use_line_collection=True)
-            ax2.stem(z_acf, acf, style, markerfmt=' ', basefmt=style, use_line_collection=True)
+            ax1.stem(z_,   drho, linefmt='C{}'.format(i) + ls[i], basefmt='C{}'.format(i) + ls[i], markerfmt=' ', use_line_collection=True)
+            ax2.stem(z_acf, acf, linefmt='C{}'.format(i) + ls[i], basefmt='C{}'.format(i) + ls[i], markerfmt=' ', use_line_collection=True)
 
 
     if flag == 'SLD':
