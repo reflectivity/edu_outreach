@@ -1,9 +1,11 @@
 name: build
 on: 
-  - push
-  - pull_request
-  paths:
-  - refl_maths/*
+  push:
+    paths:
+      - refl_maths/*  
+  pull_request:
+    paths:
+      - refl_maths/*
 
 jobs: 
   build:
