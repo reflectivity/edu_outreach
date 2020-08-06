@@ -38,7 +38,7 @@
   \affiliation{ISIS Pulsed Neutron and Muon Source, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot, Oxfordshire, OX11 0QX, UK}
   \affiliation{Department of Computer Science, University of Warwick, Coventry, CV4 7AL, UK}
 \author{Andrew R. J. Nelson}
-  \affiliation{Bragg Institute, Australian Nuclear Science and Technology Organisation, Locked Bag 2001, Kirrawee DC, NSW 2232, Australia}
+  \affiliation{Australian Centre for Neutron Scattering, Australian Nuclear Science and Technology Organisation, Locked Bag 2001, Kirrawee DC, NSW 2232, Australia}
 \author{Tim Snow}
   \affiliation{Diamond Light Source, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot, OX11 0DE, UK}
   \affiliation{School of Chemistry, University of Bristol, Bristol, BS8 1TS, UK}
@@ -51,31 +51,34 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-Neutron reflectometry analysis is an inherently ill-posed problem, which is to say that there are many possible solutions which agree equally well with the measured data.
+Neutron reflectometry analysis is an inherently ill-posed problem; the well known phase problem leads to different structures whose scattering signals are very similar.
 This leads to the use of model-dependent analysis to interpret the experimental data, where information that is ``known'' about the system is integrated into the analysis.
 This tutorial aims to introduce the mathematics that underlies the use of model-dependent analysis in neutron reflectometry.
-I hope that those that are well experienced in reflectometry find it as useful as those who are just about to experience their first reflectometry experiment.
+We hope that those that are well experienced in reflectometry find it as useful as those who are just about to experience their first reflectometry experiment.
 \end{abstract}
 
+%ARJN what about a quick intro to what NR/XRR measure? If we don't give that intro (coz this is just 'maths'), then we should perhaps reference e.g. Sivia (elementary intro)/some other intro)
 \maketitle
 
 % I know that it is common/precedent to start by looking at the Born approximation, but I wonder if, in paper format, it is just worth pointing out that multiple reflections invalidate Born and something iterative needs to be done? J.C.
+%ARJN I've never looked at the BA first (apart from possibly looking at the FT briefly).
 
 \section{Introduction}
 The mathematical concepts that underpin unpolarised reflectometry are not typically affected by whether the probing radiation is the neutron or a beam of X-rays.
-Therefore, I will discuss these agnostically and only reference a given radiation source when particularly relevant.
+Therefore, we will discuss these agnostically and only reference a given radiation source when particularly relevant.
 Additionally, this work will focus only on unpolarised, nonmagnetic reflectometry analysis.
 For those interested in polarised neutron reflectometry analysis, we suggest the work of Fitzsimmons, Toperverg and others \cite{fitzsimmons_applications_2005,zabel_polarized_2007,toperberg_neutron_2015}.
 
 The collected data (once normalised) is described in terms of reflected intensity, $R(q)$, which depends on the wavevector, $q$, and is measured as,
 %
+%ARJN, how about how to calculate the wavevector from a vector sum? i.e. something similar to fig 2, augmented with ki, kf.
 \begin{equation}
     R(q) = \frac{\text{specular reflected intensity at $q$}}{\text{incident radiation intensity}},
     \label{equ:refl}
 \end{equation}
 %
 where the denominator in Equation~\ref{equ:refl} is the total flux of X-rays or neutrons on the sample.
-It is this $R(q)$ that we want to calculate from our model and then compare with our data.
+It is this $R(q)$ that we want to calculate from our structural model and then compare with our data.
 
 The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single scattering event for each incident radiation particle, allows the reflected intensity to be calculated as follows \cite{sivia_elementary_2011},
 %
@@ -86,7 +89,13 @@ The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single 
 %
 where, $\rho'(z)$ is the first derivative of the scattering length density profile.
 The scattering length density profile is our model, a functional description of how the scattering length density varies with depth normal to the interface, $z$.
-
+%ARJN, we've not said what a scattering length density is. Do we want to do that here? I think it's worth it. We need to define it for N and X.
+% The scattering length density of a material is calculated by summing over all the scattering lengths of all the different types of atoms in a material and dividing by the molecular volume (which itself can be calculated from the mass density of a material),
+%\begin{equation}
+%    \rho_m = \sum_{i} \frac{b_i}{V_m}
+%    \label{equ:sld}
+%\end{equation}
+% For neutrons $b_i$ are the coherent scattering lengths of a material, and are tabulated at <TODO>. For X-rays the scattering length of an atom is energy dependent <REF>, but to a first approximation can be calculated as $b_i = z_i \dot r_e$, where $z_i$ is the atomic number and $r_e$ is the classical electron radius, $2.817 \times 10^{-5} \AA$.
 The approach outlined above is referred to as the kinematic approach, and it has a significant problem that can be demonstrated by considering the simple case of a bare silicon surface \cite{sivia_elementary_2011}, which can be modelled with a Heaviside function, shown in Figure~\ref{fig:kine}(a),
 %
 \begin{equation}
@@ -127,7 +136,8 @@ This violates the physical condition imposed by Equation~\ref{equ:refl}, with mo
 The breakdown of this kinematic approach is due to the assumption of the Born approximation that each incident radiation particle is only scattered once.
 The reflectometry geometry, where a large path length arises from the shallow incidence angle means that multiple scattering events are likely, rendering the kinematic approach invalid.
 
-\section{Recursive methods}
+\section{Dynamical approach}
+%ARJN abeles is not recursive
 The breakdown of the kinematic approach leads to the application of the Abel\`{e}s \cite{abeles_sur_1948} or Parratt \cite{parratt_surface_1954}, recursive model for the reflection of light at a given number of stratified interfaces, also referred to as the dynamical approach.
 This is an alternative method for calculating the reflected intensity from a model, however, now the model is a series of layers of different scattering length density.
 The probing radiation can be either reflected or refracted at the interface between each of the layers.
