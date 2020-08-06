@@ -1,0 +1,8 @@
+# Normalise line endings for tex files
+
+*.tex text=auto eol=lf
+*.py text=auto eol=lf
+
+# Force git to look at some files as binary
+*.png binary
+*.pdf binary
