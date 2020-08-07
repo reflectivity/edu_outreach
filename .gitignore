@@ -1,3 +1,11 @@
 *.synctex.gz
 *.aux
 *.log
+refl_maths/*.pdf
+refl_maths/.snakemake
+refl_maths/paper.bbl
+refl_maths/paper.blg
+refl_maths/paper.fdb_latexmk
+refl_maths/paper.fls
+refl_maths/paperNotes.bib
+**/__pycache__
