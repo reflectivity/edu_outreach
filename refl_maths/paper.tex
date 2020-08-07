@@ -152,14 +152,14 @@ Figure~\ref{fig:refr} shows the refraction and reflections from a simple two lay
 It is clear, by analogy to Bragg's law, how the two waves, labelled $r$, could interfere constructively or destructively depending on the thickness of layer \num{1}, $d$.
 
 The generalisation of this approach to any number of layers is possible and enables the reflected intensity to be calculated at each value of $q$ that was measured.
-The incident neutrons will be refracted by each of the layers, giving wavevectors for each layer, $k_n$,
+The incident radiation is refracted by each of the interfaces, with the wavevector normal to the surface, $k_n$, in each layer being given by,
 %
 \begin{equation}
-    k_n = \sqrt{k_0+4\pi(\rho_n - \rho_0)},
+    k_n = \sqrt{k_0^2 - 4\pi(\rho_n - \rho_0)},
 \end{equation}
 %
 where, $k_0 = 0.5q$.
-The Fresnel equation coefficient between layers $n$ and $n+1$, $r_{n, n+1}$, can then be found along with the phase factor, $\beta_n$, for the layer $n$,
+The Fresnel reflectance between layers $n$ and $n+1$, $r_{n, n+1}$, can then be found along with the phase factor, $\beta_n$, for the layer $n$,
 %
 \begin{equation}
     r_{n, n+1} = \frac{k_n - k_{n+1}}{k_n + k_{n+1}},
@@ -168,36 +168,40 @@ The Fresnel equation coefficient between layers $n$ and $n+1$, $r_{n, n+1}$, can
 %
 %
 \begin{equation}
-    \beta_n = k_nd_n.
+\begin{aligned}
+\beta_n = ik_nd_n, \\
+\beta_0 = 0 \\
+\end{aligned}
 \end{equation}
 %
-From the Fresnel equation coefficient and phase factor, a characteristic matrix for each layer, $M_n$, can be constructed,
+From the Fresnel reflectance and phase factor, a characteristic matrix for the interface between two layers, $M_{n, n+1}$, can be constructed,
 %
 \begin{equation}
-    M_n =
+    M_{n, n+1} =
     \begin{bmatrix}
         \exp{\beta_n} & r_{n,n+1}\exp{-\beta_n} \\
-        r_{n,n+1}\exp{\beta_n} & \exp{-\beta_n}
-    \end{bmatrix},
+        r_{n,n+1}\exp{\beta_n} & \exp{\beta_n}
+    \end{bmatrix}
 \end{equation}
 %
-and the resultant matrix for a given $q$-vector, $B(q)$ is found from the product sum of the matrices from each layer,
+The resultant matrix for a given $q$-vector, $B(q)$ is found from the product of the all the characteristic matrices,
 %
 \begin{equation}
-    B(q) = \prod_{n=0}^{n_{\text{max}}}{M_n}.
+    B(q) = \prod_{n=0}^{n_{\text{max}}-1}{M_{n, n+1}}.
 \end{equation}
-%
-The characteristic matrix for each layer describes the reflected and refracted radiation intensity, so the product sum is able to describe the total reflected intensity.
-In particular, this is given by the following elements of the resultant matrix,
+The characteristic matrix for each interface describes its reflectance and transmittance, with the product describing the reflectance and transmittance propagated over all the interfaces. This can then be used to calculate the overall reflectance and reflectivity of the system,
 %
 \begin{equation}
-    R(q) = \frac{B_{1,2}(q)}{B_{1,1}(q)}.
+\begin{aligned}
+    r =  \frac{B_{0,1}(q)}{B_{0,0}(q)} \\
+    R(q) = r\bar r
+\end{aligned}
 \end{equation}
 %
 
-This algorithm models the layers as perfectly flat layers, which may not be strictly true.
-This has resulted in the use of correction terms to be added to Equation~\ref{equ:fres} to account for this roughness.
-The most common of these is N\'{e}vot and Croce Gaussian broadening \cite{nevot_caracterisation_1980}, in which the Fresnel equation coefficient is evaluated as,
+This algorithm models the layers as perfectly sharp interfaces, which may not be strictly true.
+To account for roughness or interdiffusion correction terms are added to Equation~\ref{equ:fres}.
+The most common of these is N\'{e}vot and Croce Gaussian broadening \cite{nevot_caracterisation_1980}, in which the Fresnel reflectance is evaluated as,
 %
 \begin{equation}
     r_{n, n+1} = \frac{k_n - k_{n+1}}{k_n + k_{n+1}} \exp{(-2k_nk_{n+1}\sigma^2_{n,n+1})},
