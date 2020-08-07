@@ -89,13 +89,13 @@ The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single 
 %
 where, $\rho'(z)$ is the first derivative of the scattering length density profile.
 The scattering length density profile is our model, a functional description of how the scattering length density varies with depth normal to the interface, $z$.
-%ARJN, we've not said what a scattering length density is. Do we want to do that here? I think it's worth it. We need to define it for N and X.
-% The scattering length density of a material is calculated by summing over all the scattering lengths of all the different types of atoms in a material and dividing by the molecular volume (which itself can be calculated from the mass density of a material),
-%\begin{equation}
-%    \rho_m = \sum_{i} \frac{b_i}{V_m}
-%    \label{equ:sld}
-%\end{equation}
-% For neutrons $b_i$ are the coherent scattering lengths of a material, and are tabulated at <TODO>. For X-rays the scattering length of an atom is energy dependent <REF>, but to a first approximation can be calculated as $b_i = z_i \dot r_e$, where $z_i$ is the atomic number and $r_e$ is the classical electron radius, $2.817 \times 10^{-5} \AA$.
+ The scattering length density of a material is calculated by summing over all the scattering lengths of all the different types of atoms in a material and dividing by the molecular volume (which itself can be calculated from the mass density of a material), $V_m$,
+\begin{equation}
+    \rho_m = \sum_{i} \frac{b_i}{V_m}
+    \label{equ:sld}
+\end{equation}
+ For neutrons $b_i$ are the coherent scattering lengths of a material \cite{sears1992, dianoux2003neutron}. For X-rays the scattering length of an atom is energy dependent \cite{xray_form_factor}, but to a first approximation can be calculated as $b_i = z_i  r_e$, where $z_i$ is the atomic number and $r_e$ is the classical electron radius, $2.817 \times 10^{-5} \AA$.
+ 
 The approach outlined above is referred to as the kinematic approach, and it has a significant problem that can be demonstrated by considering the simple case of a bare silicon surface \cite{sivia_elementary_2011}, which can be modelled with a Heaviside function, shown in Figure~\ref{fig:kine}(a),
 %
 \begin{equation}
