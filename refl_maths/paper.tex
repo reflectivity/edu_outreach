@@ -72,14 +72,19 @@ For those interested in polarised neutron reflectometry analysis, we suggest the
 
 The collected data (once normalised) is described in terms of reflected intensity, $R(q)$, which depends on the wavevector, $q$, and is measured as,
 %
-%ARJN, how about how to calculate the wavevector from a vector sum? i.e. something similar to fig 2, augmented with ki, kf.
-%ARM Do you mean something like the $|k_i|\sin{\theta} = |k_f|\sin{\theta} = \frac{2\pi}\sin{\theta} = \frac{|\mathbf{q}|}{2} = \frac{q}{2}$ as a why of explaining what the $q$-vector is? I agree that it is necessary to explain what $q$ is but how about we just give the $q = \frac{4\pi\sin{\theta}}{\lambda} and explain that a full derivation can be found elsewhere \cite{sivia_elementary_2011}
 \begin{equation}
     R(q) = \frac{\text{specular reflected intensity at $q$}}{\text{incident radiation intensity}},
     \label{equ:refl}
 \end{equation}
 %
 where the denominator in Equation~\ref{equ:refl} is the total flux of X-rays or neutrons on the sample.
+The wavevector, $q$, depends on the scattering angle, $\theta$, and wavelength, $\lambda$, of the incident radiation, 
+%
+\begin{equation}
+    q = \frac{4\pi\sin{\theta}}{\lambda}.
+\end{equation}
+%
+The full derivation of this elastic scattering wavevector can be found in the work of Sivia \cite{sivia_elementary_2011}. 
 It is this $R(q)$ that we want to calculate from our structural model and then compare with our data.
 
 The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single scattering event for each incident radiation particle, allows the reflected intensity to be calculated as follows \cite{sivia_elementary_2011},
