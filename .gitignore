@@ -1,5 +1,7 @@
 *.synctex.gz
 *.aux
+*.bbl
+*.blg
 *.log
 refl_maths/*.pdf
 refl_maths/.snakemake

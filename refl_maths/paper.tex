@@ -62,6 +62,7 @@ We hope that those that are well experienced in reflectometry find it as useful 
 
 % I know that it is common/precedent to start by looking at the Born approximation, but I wonder if, in paper format, it is just worth pointing out that multiple reflections invalidate Born and something iterative needs to be done? J.C.
 %ARJN I've never looked at the BA first (apart from possibly looking at the FT briefly).
+%ARM I know that in Sivia (Elementary Scattering Theory) the BA/FT is introduced first, and I suppose that the context of this is that the previous chapter introduces scattering in the language of a FT. I am not religious to BA/FT coming first, but I think it is good from a historical perspective given that some paper use this appoarch. 
 
 \section{Introduction}
 The mathematical concepts that underpin unpolarised reflectometry are not typically affected by whether the probing radiation is the neutron or a beam of X-rays.
@@ -72,6 +73,7 @@ For those interested in polarised neutron reflectometry analysis, we suggest the
 The collected data (once normalised) is described in terms of reflected intensity, $R(q)$, which depends on the wavevector, $q$, and is measured as,
 %
 %ARJN, how about how to calculate the wavevector from a vector sum? i.e. something similar to fig 2, augmented with ki, kf.
+%ARM Do you mean something like the $|k_i|\sin{\theta} = |k_f|\sin{\theta} = \frac{2\pi}\sin{\theta} = \frac{|\mathbf{q}|}{2} = \frac{q}{2}$ as a why of explaining what the $q$-vector is? I agree that it is necessary to explain what $q$ is but how about we just give the $q = \frac{4\pi\sin{\theta}}{\lambda} and explain that a full derivation can be found elsewhere \cite{sivia_elementary_2011}
 \begin{equation}
     R(q) = \frac{\text{specular reflected intensity at $q$}}{\text{incident radiation intensity}},
     \label{equ:refl}
@@ -137,8 +139,7 @@ The breakdown of this kinematic approach is due to the assumption of the Born ap
 The reflectometry geometry, where a large path length arises from the shallow incidence angle means that multiple scattering events are likely, rendering the kinematic approach invalid.
 
 \section{Dynamical approach}
-%ARJN abeles is not recursive
-The breakdown of the kinematic approach leads to the application of the Abel\`{e}s \cite{abeles_sur_1948} or Parratt \cite{parratt_surface_1954}, recursive model for the reflection of light at a given number of stratified interfaces, also referred to as the dynamical approach.
+The breakdown of the kinematic approach leads to the application of the Abel\`{e}s matrix formalism \cite{abeles_sur_1948} or Parratt \cite{parratt_surface_1954} recursive model for the reflection of light at a given number of stratified interfaces, also referred to as the dynamical approach.
 This is an alternative method for calculating the reflected intensity from a model, however, now the model is a series of layers of different scattering length density.
 The probing radiation can be either reflected or refracted at the interface between each of the layers.
 %
