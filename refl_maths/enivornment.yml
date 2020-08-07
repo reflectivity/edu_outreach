@@ -10,8 +10,8 @@ dependencies:
   - pip=19.1.1
   - python=3.6.8
   - snakemake=5.15.0
-  - scipy=1.5.2
   - pip:
     - refnx==0.1.12
     - emcee==3.0.2
     - seaborn==0.10.1
+    - scipy==1.5.2
