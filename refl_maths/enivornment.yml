@@ -1,0 +1,17 @@
+name: refl_maths 
+channels:
+  - https://repo.anaconda.com/pkgs/free
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - matplotlib=3.2.0
+  - numpy=1.18.5
+  - pip=19.1.1
+  - python=3.6.8
+  - snakemake=5.15.0
+  - scipy=1.5.2
+  - pip:
+    - refnx==0.1.12
+    - emcee==3.0.2
+    - seaborn==0.10.1
