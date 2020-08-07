@@ -11,5 +11,5 @@ Then clone the repository and build using the following commands.
 cd refl_maths
 conda env create --prefix ./refl_maths_env --file environment.yml
 source activate ./refl_maths_env
-snakemake
+snakemake --cores 1
 ```
