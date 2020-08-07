@@ -1,0 +1,55 @@
+---
+# required entries for each material
+# ----------------------------------
+# formula
+# density
+#
+# recommended entries
+# -------------------
+# CAS
+# reference (for the density/physical properties)
+# name
+#
+# other possible entries:
+# state (solid/liquid/gas)
+# temperature (K)
+#
+# use H[2] to represent another isotope of hydrogen
+# you can also use D/T to represent Deuterium/Tritium
+
+material: Si
+  name: silicon
+  formula: Si
+  density: 2.33
+  reference:
+    - thing1
+    - thing2
+  CAS: 7440-21-3
+  
+material: SiO2
+  name: silicon dioxide
+  formula: SiO2
+  density: 2.2
+  reference: thing
+  CAS: 7631-86-9
+
+material: Au
+  name: Gold
+  formula: Au
+  density: 19.33
+  reference:
+  CAS: 7440-57-5
+
+material: water
+  name: water
+  formula: H2O
+  density: [0.997, 1.0]
+  state: liquid
+  temperature: [298, 276]
+
+material: D2O
+  name: heavy water
+  formula: D2O
+  density: 0.997
+  state: liquid
+  temperature: 298
