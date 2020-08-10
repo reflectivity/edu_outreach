@@ -30,3 +30,10 @@ Some comments from @timsnow
 Some comments from Luke Clifton
 
 - [x] One thing is I don’t understand how you go from equation 10 to equation 11. I maybe being thick but B = the product summation of M across all layer interfaces (Mn). Yet in equation 10 B1,2 / B1,1 = R(Q).
+
+Some comments from @acaruana2009
+
+- [] Disscussion about Differential Evolution (DE) needs to be looked at more closely - The discussion looks like it is about Genetic Algorithm (GA) - which is a similar yet different population based algorithm.
+- [] Include discussion about how both methods are used in reflectometry - in other optimisation problems DE tends to out perform GA - See for radio antenna optimization DOI: 10.1109/TAP.2014.2322880
+- [] Include original Storn and Price DE reference - Storn, R. Price, K. Journal of Global Optimization 1997, 11 (4), 341-359. DOI: 10.1023/A:1008202821328 
+- [] Double check maths shown: if it is purely describing DE but with GA terminology then the section could be rewritten with only minor changes. If not, inclusion of DE mathematics may also be useful.
