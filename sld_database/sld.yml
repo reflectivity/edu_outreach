@@ -90,6 +90,22 @@ material: d-toluene
   temperature: 298
   reference: https://www.chemicalbook.com/ChemicalProductProperty_EN_CB0118240.htm
 
+material: Acetonitrile
+  name: methyl cyanide
+  formula: C2H3N
+  density: 0.782
+  CAS: 75-05-8
+  state: liquid
+  reference: https://en.wikipedia.org/wiki/Acetonitrile
+  
+material: d-Acetonitrile
+  name: methyl-d3 cyanide
+  formula: C2D3N
+  density: 0.84
+  CAS:  2206-26-0
+  state: liquid
+  reference: https://www.sigmaaldrich.com/catalog/product/aldrich/151807?lang=en&region=AU
+
 material: polystyrene
   name: poly(1-phenylethene-1,2-diyl)
   formula: C8H8
