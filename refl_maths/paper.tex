@@ -227,6 +227,7 @@ There is a clear difference between the kinematic and dynamical approaches as $q
 Figure~\ref{fig:rough} shows the effect that increasing roughness can have on the scattering length density of some system, in this case \ce{D2O} on a silicon substrate.
 Notice that as the roughness gets to values similar to half the layer thickness, artifacts appear in the scattering length density profile.
 Below, where the roughness is too large, the scattering length density is less then the substrate scattering length density.
+% AJC Should we give the slicing example as a way to overcome this issue? Also I think we should make it explicit that not only is the SLD unphysical but it does not match the simulated reflectivty curve.
 This is unphysical, and indicates at an important factor that we should try and account for by not allowing large roughnesses with respect to the layer thickness, a common rule of thumb is to use less than one quarter of the layer thickness.
 %
 \begin{figure}[t]
@@ -284,8 +285,8 @@ As $\rho'(z)$ is purely real and in both examples is only composed of $\delta$ f
 \end{itemize}
 As the scattering length density profiles of both samples translate into the same ACF, it is now not surprising the similarity between their reflectivity curves.
 
-A deeper discussion on the phase problem and some techniques that have been developed to tackle it are described in the work by Majkrzak \emph{et al.} \cite{majkrzak_phase_2003}, who give an overview of several phase-sensitive experimental methods and claim that any ambiguity in a scattering length density profile obtained by these is a consequence only of the limited $q$ range over which reflectivities can be measured.
-In a similar fashion, Koutsioubas \cite{koutsioubas_model_2019} proposes a model-independent method that, when applied to multiple solvent contrast data, should lead to reliable reconstructions of the interfacial structure without the need for any a priori assumptions.
+A deeper discussion on the phase problem and some techniques that have been developed to tackle it are described in the work by Majkrzak \emph{et al.} \cite{majkrzak_phase_2003}. Here, they give an overview of several phase-sensitive experimental methods and claim that any ambiguity in a scattering length density profile obtained by these, is a consequence only of the limited $q$ range over which reflectivities can be measured.
+In a similar fashion, Koutsioubas \cite{koutsioubas_model_2019} proposes a model-independent method which, when applied to multiple solvent contrast data, should lead to reliable reconstructions of the interfacial structure without the need for any a priori assumptions.
 
 However, even when the phase problem can be theoretically alleviated, reflectivity curves from different scattering length density profiles may still be close enough to one another to be indistinguishable by finite-resolution experiments, effectively keeping the analysis of reflectometry profiles in the realm of ill-posed non-invertible problems.
 As such, reflectometry data analysis demands for advanced trial-and-error fitting techniques, the daily bread of experimenters to which the following section is devoted.
@@ -293,13 +294,14 @@ As such, reflectometry data analysis demands for advanced trial-and-error fittin
 \section{Global optimisation}
 The recursive method described above gives an accurate method to obtain a model reflected intensity.
 However, this is just the first step in the analysis of a neutron reflectometry dataset.
-Now we are interested in optimising our model such that the reflected intensity from it matches our experimental data as best as possible.
-This is the problem of parameter optimisation, which is a broad area of mathematics and computer science that we will not dwell on here.
+Now, we are interested in optimising our model such that the reflected intensity from it matches our experimental data as best as possible.
+This is the problem of parameter optimisation, which is a broad area of mathematics and computer science that we will not dwell on here. 
+%AJC Should a reference of a review be included?
 However, we will introduce the basics of optimisation and discuss the most common global optimisation method used in reflectometry.
 
 When we measure a reflectometry profile, we measure the reflected intensity, and some uncertainty in that measurement, at discrete points in the wavevector, $R(q) \pm \delta R(q)$.
 Using the recursive method discussed above, we can calculate a model reflected intensity at these same $q$ values, $R_m(q)$.
-We then aim to reduce the difference between the measured and modelled reflected intensity through the optimisation (maximisation) of the likelihood, $L$,
+We then aim to reduce the difference between the measured and modelled reflected intensity through the optimisation (maximisation) of the likelihood, $L$, % AJC Maybe lead in with the use of Chi^2 and how the Likelihood function relates. Also that usually the negative log likelihood function is used for easier problem optimisation for computation
 %
 \begin{equation}
     \begin{aligned}
@@ -320,8 +322,10 @@ Figure~\ref{fig:likelihood} shows the maximum likelihood model for some experime
 %
 
 The global optimisation of a reflectometry model is a particularly difficult problem, this is due to the ill-posed nature of this data, this is where there are many reasonable solutions to a particular reflectometry profile.
-However, a particular global optimisation method has shown substantial utility in the fitting of reflectometry data \cite{varderlee_comparison_2007}: differential evolution \cite{wormington_characterization_1999}.
+However, a particular global optimisation method has shown substantial utility in the fitting of reflectometry data \cite{varderlee_comparison_2007}: differential evolution \cite{StornPrice_1997_DE,wormington_characterization_1999}.
 This has lead to the inclusion of this method in many common reflectometry analysis packages \cite{bjorck_fitting_2011}.
+
+%AJC I think including the relevent papers from Refl1d and RefNX etc (providing they describe their use of DE) would be a useful extra few references to direct readers to.
 
 Differential evolution is an iterative, genetic algorithm, designed to mimic the evolution processes observed in biology \cite{holland_adaptation_1992}.
 The method consists of two vectors, the parent population $\mathbf{p}$, and the offspring population, $\mathbf{o}$.
@@ -365,6 +369,7 @@ Here, the likelihood is used to compare between subunits from the offspring or p
 %
 where, the $*, j$ subscript notation indicates all objects from the population, $j$.
 Following the use of the differential evolution algorithm, typically a more common (gradient-based) approach is used to ensure that the likelihood has been maximised within the space identified by the differential evolution.
+%AJC Interesting suggestion, is it that common? I tend to use DREAM from refl1d and regard that as my finishing parameters (obviously ensureing robustness and that the population and initiallisation parameters are robust). This sentence maybe highlights a topic for another paper fitting methodologies? i.e. how do you fit yours? I think we could probably come up with a large variety of equally valid fitting methods which could be a future toolbox for people to use.
 
 The differential evolution algorithm can be seen in action applied to the negative two-dimensional Ackley function \cite{ackley_connectionist_1987}, in Figure~\ref{fig:ackley}.
 The Ackley function is a common function used in the assessment of global optimisation functions. This is due to there being a large number of local minima and only a single global minimum to this function. Here, we want to maximise the value, so the negative Ackley function is used.
@@ -386,7 +391,7 @@ However, it is also a tool in model-dependent analysis, as it reduces the number
 Typically, a global (here meaning multiple contrasts) optimisation criteria is used. For example, the average or summed likelihood across all of the different measurements and model reflectometries.
 
 \section{Uncertainty quantification}
-Reflectometry measurements offer an average description of the out of place structure of a material.
+Reflectometry measurements offer an average description of the out of plane structure of a material.
 This means that it is pragmatic to describe the uncertainties in the values of our model parameters in some fashion.
 In this section, we will introduce two potential methods to determine the uncertainty on a set of model parameters.
 
@@ -421,7 +426,7 @@ The determination of parameter uncertainties from the Hessian matrix is dependen
 However, this may not always be the case \cite{mccluskey_bayesian_2019}. Therefore, is it necessary to use methods to completely describe the parameter probability distribution.
 One such method for this is Markov-chain Monte Carlo (MCMC), which samples the posterior probability distribution for each of our parameters to obtain an analytical description \cite{sivia_data_2006}.
 Typically, MCMC is used on already optimised solutions to a particular problem. In reflectometry analysis it is usually applied after the differential evolution has optimised the structure.
-In addition to being able to quantify the inverse uncertainties (the name given to the uncertainties in the model parameters) MCMC also offers a more complete understanding of the correlations between different parameters \cite{gilks_markov_1995}, which is particularly important in the ill-posed reflectometry analysis.
+In addition to being able to quantify the inverse uncertainties (the name given to the uncertainties in the model parameters), MCMC also offers a more complete understanding of the correlations between different parameters \cite{gilks_markov_1995}, which is particularly important in the ill-posed reflectometry analysis.
 
 Once an optimised set of model parameters, $\theta$, are obtained which maximise the likelihood, $L$, some random perturbation is applied,
 %
@@ -449,7 +454,7 @@ This probability is then compared with a uniformly distributed random number fro
 This process is repeated until some desired number of samples has been obtained.
 It should be noted that it is important to allow the Markov chains to have some ``burn-in'' period, which is not included in the final samples.
 This allows the MCMC algorithm to settle into the search-space.
-
+%AJC See my TODO points here
 Figure~\ref{fig:mcmc} shows the result of a MCMC sampling for a pair of overlapping Gaussian functions, performed using the \texttt{emcee} Python package \cite{foremanmackey_emcee_2012}.
 The posterior probability distributions that are available to each of the four parameters are shown along with the data, the optimised fit and a subset of models within the posterior distributions.
 All of the samples from the posterior distributions fit within the uncertainty error bars on the data.
@@ -470,7 +475,7 @@ The aim of this document was to give an introduction to some of the mathematical
 We have looked at how reflectometry is calculated from a layer model description of the scattering length density profile, and why the kinematic approach fails.
 Then we have discussed the importance of the differential evolution algorithm in reflectometry analysis and detailed the operation of this algorithm.
 Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty quantification for model-dependent analysis, with particular importance for reflectivity discussed.
-While not exhaustive, I hope that this document will give you the confidence in understanding to look in more detail into how the analysis of reflectometry measurements are performed.
+While not exhaustive, we hope that this document will give you the confidence in understanding to look in more detail into how the analysis of reflectometry measurements are performed.
 
 \section*{Author Contributions}
 ARM wrote the first draft of this text, with ARJN, TS, JMCL, TA, JFKC offering additional content and editing.
