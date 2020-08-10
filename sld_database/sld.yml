@@ -30,8 +30,21 @@ material: SiO2
   name: silicon dioxide
   formula: SiO2
   density: 2.2
-  reference: thing
+  reference: native oxide on top of silicon
   CAS: 7631-86-9
+
+material: quartz
+  name: silicon dioxide
+  formula: SiO2
+  density: 2.65
+  reference: single crystal quartz
+  CAS: 7631-86-9
+
+material: sapphire
+  name: sapphire
+  formula: Al2O3
+  density: 3.97
+  reference: single crystal sapphire
 
 material: Au
   name: Gold
@@ -39,6 +52,12 @@ material: Au
   density: 19.33
   reference:
   CAS: 7440-57-5
+
+material: Nickel
+  name: Nickel
+  formula: Ni
+  density: 8.908
+  reference: natural Ni abundance
 
 material: water
   name: water
@@ -48,8 +67,79 @@ material: water
   temperature: [298, 276]
 
 material: D2O
-  name: heavy water
+  name: deuterium oxide
   formula: D2O
   density: 0.997
   state: liquid
   temperature: 298
+  CAS: 7789-20-0
+
+material: h-toluene
+  name: toluene
+  formula: C7H8
+  density: 0.87
+  CAS: 108-88-3
+  state: liquid
+
+material: d-toluene
+  name: toluene-d8
+  formula: C7D8
+  density: 0.943
+  CAS: 2037-26-5
+  state: liquid
+  temperature: 298
+  reference: https://www.chemicalbook.com/ChemicalProductProperty_EN_CB0118240.htm
+
+material: Acetonitrile
+  name: methyl cyanide
+  formula: C2H3N
+  density: 0.782
+  CAS: 75-05-8
+  state: liquid
+  reference: https://en.wikipedia.org/wiki/Acetonitrile
+  
+material: d-Acetonitrile
+  name: methyl-d3 cyanide
+  formula: C2D3N
+  density: 0.84
+  CAS:  2206-26-0
+  state: liquid
+  reference: https://www.sigmaaldrich.com/catalog/product/aldrich/151807?lang=en&region=AU
+
+material: polystyrene
+  name: poly(1-phenylethene-1,2-diyl)
+  formula: C8H8
+  density: 1.05
+  state: solid
+  CAS: 9003-53-6
+  reference: https://en.wikipedia.org/wiki/Polystyrene
+
+material: deuterated polystyrene
+  name: poly(1-phenylethene-1,2-diyl)-d8
+  formula: C8D8
+  density: 1.12
+  state: solid
+  CAS: 27732-42-9
+  reference: https://aip.scitation.org/doi/10.1063/1.475769 *CHECK*
+
+material: Poly(methyl methacrylate)
+  name: poly(methyl 2-methylpropenoate)
+  formula: C5O2H8
+  density: 1.18
+  CAS: 9011-14-7
+  state: solid
+  reference: https://en.wikipedia.org/wiki/Poly(methyl_methacrylate)
+
+material: PDMS
+  name: poly(dimethylsiloxane)
+  formula: C2H6OSi
+  density: 0.965
+  CAS: 63148-62-9
+  reference: https://en.wikipedia.org/wiki/Polydimethylsiloxane
+
+material: Gallium arsenide
+  name: Gallium arsenide
+  formula: GaAs
+  density: 5.32
+  CAS: 1303-00-0
+  reference: https://en.wikipedia.org/wiki/Gallium_arsenide
