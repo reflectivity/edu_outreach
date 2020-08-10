@@ -33,7 +33,10 @@ Some comments from Luke Clifton
 
 Some comments from @acaruana2009
 
-- [] Disscussion about Differential Evolution (DE) needs to be looked at more closely - The discussion looks like it is about Genetic Algorithm (GA) - which is a similar yet different population based algorithm.
-- [] Include discussion about how both methods are used in reflectometry - in other optimisation problems DE tends to out perform GA - See for radio antenna optimization DOI: 10.1109/TAP.2014.2322880
-- [] Include original Storn and Price DE reference - Storn, R. Price, K. Journal of Global Optimization 1997, 11 (4), 341-359. DOI: 10.1023/A:1008202821328 
-- [] Double check maths shown: if it is purely describing DE but with GA terminology then the section could be rewritten with only minor changes. If not, inclusion of DE mathematics may also be useful.
+- [ ] Should the appropriate handling of the roughness be expanded by giving some ideas of how to deal with large interfaces i.e. from interdiffusion, by slicing the interface? - [ ] It is good to make explicit that from too large roughness values not only the SLD you observe is unphysical, it also does not match the generated reflectivity simulation. This point is often missed. A few users I have spoken to think it is 'OK' to have a huge roughness because 'it gives the SLD profile they expect' missing the previous point.
+
+- [x] Include original Storn and Price DE reference - Storn, R. Price, K. Journal of Global Optimization 1997, 11 (4), 341-359. DOI: 10.1023/A:1008202821328 
+- [ ] Maybe include References for other fitting software that use DE (as long as they describe their usage of DE in the reference), to give the reader a broader selection of reading of which to draw from
+- [ ] For the Bayesian section, I think some discussion about the number of samples required to reliably obtain the confidence interval is useful. i.e. 1e6 samples for the 95% interval. 
+- [ ] Additionally, depending on the algorithm, the burn in can also include the convergence time, i.e. the chains of all of the population need to be in an equilibrium state - so they have all converged before taking samples 
+
