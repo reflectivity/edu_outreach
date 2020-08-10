@@ -21,9 +21,7 @@ material: Si
   name: silicon
   formula: Si
   density: 2.33
-  reference:
-    - thing1
-    - thing2
+  reference: https://en.wikipedia.org/wiki/Silicon
   CAS: 7440-21-3
   
 material: SiO2
@@ -53,11 +51,26 @@ material: Au
   reference:
   CAS: 7440-57-5
 
+material: Cr
+  name: Chromium
+  formula: Cr
+  density: 7.19
+  reference: https://en.wikipedia.org/wiki/Chromium
+  CAS: 7440-47-3
+
 material: Nickel
   name: Nickel
   formula: Ni
   density: 8.908
+  CAS: 7440-02-0
   reference: natural Ni abundance
+
+material: Titanium
+  name: Titanium
+  formula: Ti
+  CAS: 	7440-32-6
+  density: 4.056
+  reference: https://en.wikipedia.org/wiki/Titanium
 
 material: water
   name: water
@@ -143,3 +156,24 @@ material: Gallium arsenide
   density: 5.32
   CAS: 1303-00-0
   reference: https://en.wikipedia.org/wiki/Gallium_arsenide
+ 
+material: P3HT
+  name: Poly(3-hexylthiophene) 
+  formula: C10H14S
+  density: 1.33
+  CAS: 156074-98-5
+  reference: http://gisaxs.com/index.php/Material:P3HT
+
+material: 60-PCBM
+  name: [6,6]-Phenyl C61 butyric acid methyl ester
+  formula: C82H14O2
+  density: 1.61
+  CAS: 160848-22-6
+  reference: 10.1021/la403951j
+  
+material: 70-PCBM
+  name: [6,6]-Phenyl-C71-butyric acid methyl ester
+  formula: C72H14O2
+  density: 1.61
+  CAS: 609771-63-3
+  reference: 10.1021/la403951j
