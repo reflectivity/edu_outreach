@@ -1,6 +1,8 @@
 ---
 # required entries for each material
 # ----------------------------------
+# name (you can have more than one name, suggest you put common name
+#       and popular name)
 # formula
 # density
 #
@@ -10,170 +12,169 @@
 # reference (for the density/physical properties)
 # name
 #
-# other possible entries:
+# other possible entries: 
 # state (solid/liquid/gas)
 # temperature (K)
 #
 # use H[2] to represent another isotope of hydrogen
 # you can also use D/T to represent Deuterium/Tritium
 
-material: Si
-  name: silicon
-  formula: Si
-  density: 2.33
-  reference: https://en.wikipedia.org/wiki/Silicon
-  CAS: 7440-21-3
+materials: 
+  - name: Si
+    name: silicon
+    formula: Si
+    density: 2.33
+    reference: https://en.wikipedia.org/wiki/Silicon
+    CAS: 7440-21-3
   
-material: SiO2
-  name: silicon dioxide
-  formula: SiO2
-  density: 2.2
-  reference: native oxide on top of silicon
-  CAS: 7631-86-9
+  - name: SiO2
+    name: silicon dioxide
+    formula: SiO2
+    density: 2.2
+    reference: native oxide on top of silicon
+    CAS: 7631-86-9
 
-material: quartz
-  name: silicon dioxide
-  formula: SiO2
-  density: 2.65
-  reference: single crystal quartz
-  CAS: 7631-86-9
+  - name: quartz
+    name: silicon dioxide
+    formula: SiO2
+    density: 2.65
+    reference: single crystal quartz
+    CAS: 7631-86-9
 
-material: sapphire
-  name: sapphire
-  formula: Al2O3
-  density: 3.97
-  reference: single crystal sapphire
+  - name: sapphire
+    name: sapphire
+    formula: Al2O3
+    density: 3.97
+    reference: single crystal sapphire
 
-material: Au
-  name: Gold
-  formula: Au
-  density: 19.33
-  reference:
-  CAS: 7440-57-5
+  - name: Au
+    name: Gold
+    formula: Au
+    density: 19.33
+    CAS: 7440-57-5
 
-material: Cr
-  name: Chromium
-  formula: Cr
-  density: 7.19
-  reference: https://en.wikipedia.org/wiki/Chromium
-  CAS: 7440-47-3
+  - name: Cr
+    name: Chromium
+    formula: Cr
+    density: 7.19
+    reference: https://en.wikipedia.org/wiki/Chromium
+    CAS: 7440-47-3
 
-material: Nickel
-  name: Nickel
-  formula: Ni
-  density: 8.908
-  CAS: 7440-02-0
-  reference: natural Ni abundance
+  - name: Nickel
+    name: Nickel
+    formula: Ni
+    density: 8.908
+    CAS: 7440-02-0
+    reference: natural Ni abundance
 
-material: Titanium
-  name: Titanium
-  formula: Ti
-  CAS: 	7440-32-6
-  density: 4.056
-  reference: https://en.wikipedia.org/wiki/Titanium
+  - name: Titanium
+    name: Titanium
+    formula: Ti
+    CAS: 7440-32-6
+    density: 4.056
+    reference: https://en.wikipedia.org/wiki/Titanium
 
-material: water
-  name: water
-  formula: H2O
-  density: [0.997, 1.0]
-  state: liquid
-  temperature: [298, 276]
+  - name: water
+    name: water
+    formula: H2O
+    density: [0.997, 1.0]
+    state: liquid
+    temperature: [298, 276]
 
-material: D2O
-  name: deuterium oxide
-  formula: D2O
-  density: 0.997
-  state: liquid
-  temperature: 298
-  CAS: 7789-20-0
+  - name: D2O
+    name: deuterium oxide
+    formula: D2O
+    density: 0.997
+    state: liquid
+    temperature: 298
+    CAS: 7789-20-0
 
-material: h-toluene
-  name: toluene
-  formula: C7H8
-  density: 0.87
-  CAS: 108-88-3
-  state: liquid
+  - name: h-toluene
+    name: toluene
+    formula: C7H8
+    density: 0.87
+    CAS: 108-88-3
+    state: liquid
 
-material: d-toluene
-  name: toluene-d8
-  formula: C7D8
-  density: 0.943
-  CAS: 2037-26-5
-  state: liquid
-  temperature: 298
-  reference: https://www.chemicalbook.com/ChemicalProductProperty_EN_CB0118240.htm
+  - name: d-toluene
+    name: toluene-d8
+    formula: C7D8
+    density: 0.943
+    CAS: 2037-26-5
+    state: liquid
+    temperature: 298
+    reference: https://www.chemicalbook.com/ChemicalProductProperty_EN_CB0118240.htm
 
-material: Acetonitrile
-  name: methyl cyanide
-  formula: C2H3N
-  density: 0.782
-  CAS: 75-05-8
-  state: liquid
-  reference: https://en.wikipedia.org/wiki/Acetonitrile
-  
-material: d-Acetonitrile
-  name: methyl-d3 cyanide
-  formula: C2D3N
-  density: 0.84
-  CAS:  2206-26-0
-  state: liquid
-  reference: https://www.sigmaaldrich.com/catalog/product/aldrich/151807?lang=en&region=AU
+  - name: Acetonitrile
+    name: methyl cyanide
+    formula: C2H3N
+    density: 0.782
+    CAS: 75-05-8
+    state: liquid
+    reference: https://en.wikipedia.org/wiki/Acetonitrile
 
-material: polystyrene
-  name: poly(1-phenylethene-1,2-diyl)
-  formula: C8H8
-  density: 1.05
-  state: solid
-  CAS: 9003-53-6
-  reference: https://en.wikipedia.org/wiki/Polystyrene
+  - name: d-Acetonitrile
+    name: methyl-d3 cyanide
+    formula: C2D3N
+    density: 0.84
+    CAS: 2206-26-0
+    state: liquid
+    reference: https://www.sigmaaldrich.com/catalog/product/aldrich/151807?lang=en&region=AU
 
-material: deuterated polystyrene
-  name: poly(1-phenylethene-1,2-diyl)-d8
-  formula: C8D8
-  density: 1.12
-  state: solid
-  CAS: 27732-42-9
-  reference: https://aip.scitation.org/doi/10.1063/1.475769 *CHECK*
+  - name: polystyrene
+    name: poly(1-phenylethene-1,2-diyl)
+    formula: C8H8
+    density: 1.05
+    state: solid
+    CAS: 9003-53-6
+    reference: https://en.wikipedia.org/wiki/Polystyrene
 
-material: Poly(methyl methacrylate)
-  name: poly(methyl 2-methylpropenoate)
-  formula: C5O2H8
-  density: 1.18
-  CAS: 9011-14-7
-  state: solid
-  reference: https://en.wikipedia.org/wiki/Poly(methyl_methacrylate)
+  - name: deuterated polystyrene
+    name: poly(1-phenylethene-1,2-diyl)-d8
+    formula: C8D8
+    density: 1.12
+    state: solid
+    CAS: 27732-42-9
+    reference: https://aip.scitation.org/doi/10.1063/1.475769 *CHECK*
 
-material: PDMS
-  name: poly(dimethylsiloxane)
-  formula: C2H6OSi
-  density: 0.965
-  CAS: 63148-62-9
-  reference: https://en.wikipedia.org/wiki/Polydimethylsiloxane
+  - name: Poly(methyl methacrylate)
+    name: poly(methyl 2-methylpropenoate)
+    formula: C5O2H8
+    density: 1.18
+    CAS: 9011-14-7
+    state: solid
+    reference: https://en.wikipedia.org/wiki/Poly(methyl_methacrylate)
 
-material: Gallium arsenide
-  name: Gallium arsenide
-  formula: GaAs
-  density: 5.32
-  CAS: 1303-00-0
-  reference: https://en.wikipedia.org/wiki/Gallium_arsenide
- 
-material: P3HT
-  name: Poly(3-hexylthiophene) 
-  formula: C10H14S
-  density: 1.33
-  CAS: 156074-98-5
-  reference: http://gisaxs.com/index.php/Material:P3HT
+  - name: PDMS
+    name: poly(dimethylsiloxane)
+    formula: C2H6OSi
+    density: 0.965
+    CAS: 63148-62-9
+    reference: https://en.wikipedia.org/wiki/Polydimethylsiloxane
 
-material: 60-PCBM
-  name: [6,6]-Phenyl C61 butyric acid methyl ester
-  formula: C82H14O2
-  density: 1.61
-  CAS: 160848-22-6
-  reference: 10.1021/la403951j
-  
-material: 70-PCBM
-  name: [6,6]-Phenyl-C71-butyric acid methyl ester
-  formula: C72H14O2
-  density: 1.61
-  CAS: 609771-63-3
-  reference: 10.1021/la403951j
+  - name: Gallium arsenide
+    formula: GaAs
+    density: 5.32
+    CAS: 1303-00-0
+    reference: https://en.wikipedia.org/wiki/Gallium_arsenide
+
+  - name: P3HT
+    name: Poly(3-hexylthiophene) 
+    formula: C10H14S
+    density: 1.33
+    CAS: 156074-98-5
+    reference: http://gisaxs.com/index.php/-P3HT
+
+  - name: C60-PCBM
+    name: '[6,6]-Phenyl C61 butyric acid methyl ester'
+    formula: C82H14O2
+    density: 1.61
+    CAS: 160848-22-6
+    reference: 10.1021/la403951j
+
+  - name: C70-PCBM
+    name: '[6,6]-Phenyl-C71-butyric acid methyl ester'
+    formula: C72H14O2
+    density: 1.61
+    CAS: 609771-63-3
+    reference: 10.1021/la403951j
