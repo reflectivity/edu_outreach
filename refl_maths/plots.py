@@ -62,17 +62,20 @@ def kine():
 
 
 def dyna():
+    # a comparison of dynamical + kinematic approaches.
     fig = plt.figure(constrained_layout=True, figsize=(10, 7.5/2))
     spec = gridspec.GridSpec(ncols=2, nrows=1, figure=fig)
     ax3 = fig.add_subplot(spec[0, :])
 
-    # kinematic
+    # kinematic reflectivity
     q = np.linspace(0.002, 0.05, 500)
-    r = 16 * np.pi ** 2 * 2.074e-6 ** 2 / (q ** 4)
+    kinematic_r = 16 * np.pi ** 2 * 2.074e-6 ** 2 / (q ** 4)
+    ax3.plot(q, kinematic_r, c=c[0])
 
+    # dynamical reflectivity
     q2 = np.linspace(0, 0.05, 1000)
-    ax3.plot(q, r, c=c[0])
     layers = np.array([[0, 0, 0, 0,], [0, 2.074, 0, 0]])
+
     ax3.plot(q2, reflectivity(q2, layers, dq=0), c=c[2], zorder=10)
     ax3.axhline(1, c=c[1])
     ax3.set_yscale('log')
