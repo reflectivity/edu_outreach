@@ -19,4 +19,7 @@ jobs:
           python-version: 3.8
 
       - name: yaml lint
-        run: python3 -c "import yaml; f=open('sld_database/sld.yml', 'r'); yaml.safe_load(f);f.close()"
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyaml
+          python -c "import pyaml; f=open('sld_database/sld.yml', 'r'); pyaml.yaml.safe_load(f);f.close()"
