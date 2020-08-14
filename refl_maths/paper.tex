@@ -103,7 +103,7 @@ The scattering length density profile is our model, a functional description of 
 \end{equation}
  For neutrons $b_i$ are the coherent scattering lengths of a material \cite{sears1992, dianoux2003neutron}. For X-rays the scattering length of an atom is energy dependent \cite{xray_form_factor}, but to a first approximation can be calculated as $b_i = z_i  r_e$, where $z_i$ is the atomic number and $r_e$ is the classical electron radius, $2.817 \times 10^{-5} \AA$.
  
-The approach outlined above is referred to as the kinematic approach, and it has a significant problem that can be demonstrated by considering the simple case of a bare silicon surface \cite{sivia_elementary_2011}, which can be modelled with a Heaviside function, shown in Figure~\ref{fig:kine}(a),
+The approach based on Born Approximation outlined above  is referred to as the kinematic approach, and it has a significant problem that can be demonstrated by considering the simple case of a bare silicon surface \cite{sivia_elementary_2011}, which can be modelled with a Heaviside function, shown in Figure~\ref{fig:kine}(a),
 %
 \begin{equation}
     \rho(z) =
@@ -113,6 +113,7 @@ The approach outlined above is referred to as the kinematic approach, and it has
     \end{cases}
 \end{equation}
 %
+%WP: I would add thick "1" to vertical axis (where orange line crosses Y axis). 
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{kine}
@@ -215,7 +216,7 @@ The most common of these is N\'{e}vot and Croce Gaussian broadening \cite{nevot_
 %
 where, $\sigma_{n, n+1}$ is the interfacial roughness between the layers $n$ and $n+1$.
 Applying this dynamical approach to a perfectly flat silicon surface is shown in Figure~\ref{fig:dyna}.
-There is a clear difference between the kinematic and dynamical approaches as $q \to 0$, with the dynamical approach adhering to the physical constraint that causes the breakdown of the kinematic approach.
+There is a clear difference between the kinematic and dynamical approaches as $q \to 0$, with the dynamical approach adhering to the physical constraint that causes the breakdown of the kinematic approach. %WP: Would it be useful to show exact calculations for silicon substrate (probably in supplementary materials)?
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{dyna}
@@ -238,7 +239,7 @@ This is unphysical, and indicates at an important factor that we should try and 
 %
 
 \section{Instrumental resolution}
-In the analysis process, a resolution function associated with the instrumentation the reflectometry measurement was performed on it typically introduced to the model.
+In the analysis process, a resolution function associated with the instrumentation the reflectometry measurement was performed on it typically introduced to the model. %WP: something wrong with the grammar here. I think "is" is missing but leaving it to native speakers
 This ensures greater accuracy in the modelled reflectometry to the experiment.
 These resolution functions are non-trival to define, however, the majority of reflectometry instruments will be able to offer information about the appropriate function to use.
 
@@ -250,7 +251,7 @@ However, the resolution function used by a given software package may not be an 
 More information about the resolution function can be found in the work of van Well and Fredrikze \cite{vanwell_resolution_2005} and Nelson and Dewhurst \cite{nelson_towards_2013,nelson_towards_2014}
 
 \section{Ill posedness - the phase problem}
-
+%WP: I suggest moving this section towards end.  
 Figure \ref{fig:phase_problem_sld} shows two hypothetical samples of the same total thickness, consisting of one and two layers, deposited on a substrate with $\rho_s = \SI{2.07e-6}{\angstrom^{-2}}$.
 Even though the scattering length density depth profiles are distinctly different, the resultant reflectivity curves are virtually identical, with only a slight discrepancy at the first minimum.
 This ambiguity, known as \emph{the phase problem}, is an example of the information lost in diffraction experiments due to the inability of measuring the phase of the scattered wave (note that equation \ref{equ:kine} involves a modulus-squared).
@@ -259,7 +260,7 @@ This ambiguity, known as \emph{the phase problem}, is an example of the informat
     \caption{The phase problem, (a) two different samples deposited on the same substrate with a scattering length density of $\rho_s$, (b) are indistinguishable from one another by looking only at their reflectivity curve $R(q)$.}
     \label{fig:phase_problem_sld}
 \end{figure}
-
+%WP: I think some gentle introduction to autocorellation function will be useful 
 A heuristic explanation for the phase problem can be built in terms of the auto-correlation function of $\rmd\rho/\rmd z$, which gives a real-space representation of the information contained in the reflectivity pattern,
 %
 \begin{equation}
@@ -292,6 +293,7 @@ However, even when the phase problem can be theoretically alleviated, reflectivi
 As such, reflectometry data analysis demands for advanced trial-and-error fitting techniques, the daily bread of experimenters to which the following section is devoted.
 
 \section{Global optimisation}
+
 The recursive method described above gives an accurate method to obtain a model reflected intensity.
 However, this is just the first step in the analysis of a neutron reflectometry dataset.
 Now, we are interested in optimising our model such that the reflected intensity from it matches our experimental data as best as possible.
@@ -388,11 +390,12 @@ However, we note here that, the phrase ``global optimisation'' is often used to 
 This is where a single structural model is used for the analysis of multiple measurements, but the scattering length densities are varied based on the particular contrasts under investigation.
 This method has been used to recover the phase information in neutron reflectometry analysis \cite{majkrzak_exact_1995,majkrzak_first_2000,majkrzak_phase_2003,koutsioubas_model_2019}.
 However, it is also a tool in model-dependent analysis, as it reduces the number of local minimia in the parameter space.
+%WP: Summed likelihood or log likelihood?
 Typically, a global (here meaning multiple contrasts) optimisation criteria is used. For example, the average or summed likelihood across all of the different measurements and model reflectometries.
 
 \section{Uncertainty quantification}
 Reflectometry measurements offer an average description of the out of plane structure of a material.
-This means that it is pragmatic to describe the uncertainties in the values of our model parameters in some fashion.
+This means that it is pragmatic to describe the uncertainties in the values of our model parameters in same fashion.
 In this section, we will introduce two potential methods to determine the uncertainty on a set of model parameters.
 
 The first is computationally straightforward and is substantially more common.
@@ -423,7 +426,7 @@ The determination of parameter uncertainties from the Hessian matrix is dependen
     \item {the parameters are normally distributed with a single maximum,}
     \item {the covariance between the parameters is negligible.}
 \end{enumerate}
-However, this may not always be the case \cite{mccluskey_bayesian_2019}. Therefore, is it necessary to use methods to completely describe the parameter probability distribution.
+However, this may not always be the case \cite{mccluskey_bayesian_2019}. Therefore, it is necessary to use methods to completely describe the parameter probability distribution.
 One such method for this is Markov-chain Monte Carlo (MCMC), which samples the posterior probability distribution for each of our parameters to obtain an analytical description \cite{sivia_data_2006}.
 Typically, MCMC is used on already optimised solutions to a particular problem. In reflectometry analysis it is usually applied after the differential evolution has optimised the structure.
 In addition to being able to quantify the inverse uncertainties (the name given to the uncertainties in the model parameters), MCMC also offers a more complete understanding of the correlations between different parameters \cite{gilks_markov_1995}, which is particularly important in the ill-posed reflectometry analysis.
@@ -435,7 +438,7 @@ Once an optimised set of model parameters, $\theta$, are obtained which maximise
 \end{equation}
 %
 where $R$ is some normally distributed number centered on \num{0} with a standard distribution of \num{1} and $a$ is the step size.
-A new $L$ is found for $\Theta$ and the probability that this transition is will occur is found,
+A new $L$ is found for $\Theta$ and the probability that this transition will occur is found,
 %
 \begin{equation}
     p = \exp{\bigg[\frac{L(\Theta) - L(\theta)}{2}\bigg]}.
