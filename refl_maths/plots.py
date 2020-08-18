@@ -53,6 +53,8 @@ def kine():
     ax3.set_yscale('log')
     ax3.set_xlabel(r"$q$/Å$^{-1}$")
     ax3.set_ylabel(r"$R(q)$")
+    ax3.set_yticks([10, 1, 0.1, 0.01, 0.001, 0.0001])
+    ax3.set_yticklabels(['$10^1$', '$1$', '$10^{-1}$', '$10^{-2}$', '$10^{-3}$', '$10^{-4}$'])
     ax3.text(0.975, 0.95, '(c)', horizontalalignment='right',
              verticalalignment='top', transform=ax3.transAxes)
     ax3.set_xlim(0, 0.05)

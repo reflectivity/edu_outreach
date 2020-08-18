@@ -60,6 +60,7 @@ We hope that those that are well experienced in reflectometry find it as useful 
 \end{abstract}
 
 %ARJN what about a quick intro to what NR/XRR measure? If we don't give that intro (coz this is just 'maths'), then we should perhaps reference e.g. Sivia (elementary intro)/some other intro)
+%ARM I think Christy Kinane will be adding something like this. 
 \maketitle
 
 % I know that it is common/precedent to start by looking at the Born approximation, but I wonder if, in paper format, it is just worth pointing out that multiple reflections invalidate Born and something iterative needs to be done? J.C.
@@ -115,7 +116,6 @@ The approach based on Born Approximation outlined above  is referred to as the k
     \end{cases}
 \end{equation}
 %
-%WP: I would add thick "1" to vertical axis (where orange line crosses Y axis). 
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{kine}
@@ -241,7 +241,7 @@ This is unphysical, and indicates at an important factor that we should try and 
 %
 
 \section{Instrumental resolution}
-In the analysis process, a resolution function associated with the instrumentation the reflectometry measurement was performed on it typically introduced to the model. %WP: something wrong with the grammar here. I think "is" is missing but leaving it to native speakers
+In the analysis process, a resolution function associated with the instrumentation that the reflectometry measurement was performed on it typically introduced to the model. 
 This ensures greater accuracy in the modelled reflectometry to the experiment.
 These resolution functions are non-trival to define, however, the majority of reflectometry instruments will be able to offer information about the appropriate function to use.
 
@@ -262,7 +262,7 @@ This ambiguity, known as \emph{the phase problem}, is an example of the informat
     \caption{The phase problem, (a) two different samples deposited on the same substrate with a scattering length density of $\rho_s$, (b) are indistinguishable from one another by looking only at their reflectivity curve $R(q)$.}
     \label{fig:phase_problem_sld}
 \end{figure}
-%WP: I think some gentle introduction to autocorellation function will be useful 
+%WP: I think some gentle introduction to autocorelation function will be useful 
 A heuristic explanation for the phase problem can be built in terms of the auto-correlation function of $\rmd\rho/\rmd z$, which gives a real-space representation of the information contained in the reflectivity pattern,
 %
 \begin{equation}
@@ -327,9 +327,7 @@ Figure~\ref{fig:likelihood} shows the maximum likelihood model for some experime
 
 The global optimisation of a reflectometry model is a particularly difficult problem, this is due to the ill-posed nature of this data, this is where there are many reasonable solutions to a particular reflectometry profile.
 However, a particular global optimisation method has shown substantial utility in the fitting of reflectometry data \cite{varderlee_comparison_2007}: differential evolution \cite{StornPrice_1997_DE,wormington_characterization_1999}.
-This has lead to the inclusion of this method in many common reflectometry analysis packages \cite{bjorck_fitting_2011}.
-
-%AJC I think including the relevent papers from Refl1d and RefNX etc (providing they describe their use of DE) would be a useful extra few references to direct readers to.
+This has lead to the inclusion of this method in many common reflectometry analysis packages \cite{bjorck_fitting_2011,nelson_refnx_2019,kienzle_ncnr_nodate}.
 
 Differential evolution is an iterative, genetic algorithm, designed to mimic the evolution processes observed in biology \cite{holland_adaptation_1992}.
 The method consists of two vectors, the parent population $\mathbf{p}$, and the offspring population, $\mathbf{o}$.
@@ -392,8 +390,8 @@ However, we note here that, the phrase ``global optimisation'' is often used to 
 This is where a single structural model is used for the analysis of multiple measurements, but the scattering length densities are varied based on the particular contrasts under investigation.
 This method has been used to recover the phase information in neutron reflectometry analysis \cite{majkrzak_exact_1995,majkrzak_first_2000,majkrzak_phase_2003,koutsioubas_model_2019}.
 However, it is also a tool in model-dependent analysis, as it reduces the number of local minimia in the parameter space.
-%WP: Summed likelihood or log likelihood?
-Typically, a global (here meaning multiple contrasts) optimisation criteria is used. For example, the average or summed likelihood across all of the different measurements and model reflectometries.
+Typically, a global (here meaning multiple contrasts) optimisation criteria is used.
+For example, the average or summed (log-)likelihood across all of the different measurements and model reflectometries.
 
 \section{Uncertainty quantification}
 Reflectometry measurements offer an average description of the out of plane structure of a material.
@@ -483,8 +481,8 @@ Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty q
 While not exhaustive, we hope that this document will give you the confidence in understanding to look in more detail into how the analysis of reflectometry measurements are performed.
 
 \section*{Author Contributions}
-ARM wrote the first draft of this text, with ARJN, TS, JMCL, TA, JFKC offering additional content and editing.
- JFKC and TS sourced funding.
+ARM wrote the first draft of this text, with JMCL, JFKC, JHD, ARJN, WP, and TS offering additional content and editing.
+JFKC and TS sourced funding for ARM.
 
 
 \section*{Acknowledgements}
