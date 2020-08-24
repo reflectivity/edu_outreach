@@ -475,6 +475,17 @@ This shows the ability for MCMC to sample the range of the distribution that is 
 We note here that MCMC may also be used to facilitate the use of Bayesian inference in the analysis of reflectometry data, where other prior knowledge about the experimental system is able to influence the result of the analysis.
 In this tutorial, we won't say any more on this subject, but if you are interested, this is discussed in the work of Nelson and Prescott \cite{nelson_refnx_2019} and McCluskey and co-workers \cite{mccluskey_general_2020}.
 
+\section{Overfitting}
+
+Main points
+1. Rule of thumb - simple the better but what does it mean
+2. Way to quantify information content without model doesn't exist but gain of information with the model can be estimated
+3. Bayesian model selection provides statistically sound way of testing hypotesis
+4. Combining different sources of information increase information content but requires proper methodology
+
+When constructing model to explain experimental data care must be taken to not to overcomplicate the model so it can be supported by the data without overfitting. Typically this has been done by using "rule of thumb" of choosing simplest model possible []. However, even in such cases the assumption has been made in terms of information content in the data and if it can support such model. One potential way to quantify such information is to apply methods for small-angle scattering data have been established in the past (Moore, 1980 ▸; Taupin & Luzzati, 1982 ▸; Luzzati & Taupin, 1986 ▸; Müller et al., 1996 ▸; Vestergaard & Hansen, 2006 ▸; Pedersen et al., 2014 ▸; Konarev & Svergun, 2015 ▸; Larsen et al., 2018 ▸) to refractometry. These approaches have in common that the information content of the experiment is quantified either directly from y, or from y given x and θ. However for reflectometry a model based method, which describes the information gain from virtual experiments using a series of discrete information processing steps has been applied \cite{Treece_2019}. This procedure has a substantial advantage over other implementations in that it can handle information distributed across multiple related measurements that are analyzed simultaneously with one model. Alternatively one can use. Alterantively, one can use a  Bayesian approach that allows for the comparison of models where there are different numbers of free parameters, without the risk of overfitting. This is due to the Bayesian evidence being derived from an integral in parameter space and therefore scaling with the number of parameters. This means that the addition of an additional free parameter to the model must offer a significant improvement to the likelihood determined. However, it is important also to note that the accuracy of the determined evidence depends on the prior probabilities chosen for each of the free parameters and therefore care should be taken to ensure that these are meaningful.
+
+
 \section{Conclusions}
 The aim of this document was to give an introduction to some of the mathematical concepts that underpin modern reflectometry model-dependent analysis.
 We have looked at how reflectometry is calculated from a layer model description of the scattering length density profile, and why the kinematic approach fails.
