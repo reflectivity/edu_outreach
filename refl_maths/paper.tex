@@ -97,7 +97,7 @@ The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single 
     \label{equ:kine}
 \end{equation}
 %
-where, $\rho'(z)$ is the first derivative of the scattering length density profile.
+where $\rho'(z)$ is the first derivative of the scattering length density profile.
 The scattering length density profile is our model, a functional description of how the scattering length density varies with depth normal to the interface, $z$.
  The scattering length density of a material is calculated by summing over all the scattering lengths of all the different types of atoms in a material and dividing by the molecular volume (which itself can be calculated from the mass density of a material), $V_m$,
 \begin{equation}
@@ -119,7 +119,7 @@ The approach based on Born Approximation outlined above  is referred to as the k
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{kine}
-    \caption{A graphical representation of each aspect of the kinematic approach; (a) the Heaviside function describing the scattering length density profile for a bare silicon substrate, (b) the $\delta$-function arising from the first derivative of the function in (a), and (c) the resulting reflectometry profile, where the orange line at $R(q)$ = 1 identifies the breakdown of between experiment and theory.}
+    \caption{A graphical representation of each aspect of the kinematic approach; (a) the Heaviside function describing the scattering length density profile for a bare silicon substrate, (b) the $\delta$-function arising from the first derivative of the function in (a), and (c) the resulting reflectometry profile, where the orange line at $R(q)$ = 1 identifies the breakdown between experiment and theory.}
     \label{fig:kine}
 \end{figure}
 %
@@ -193,7 +193,7 @@ From the Fresnel reflectance and phase factor, a characteristic matrix for the i
     \end{bmatrix}
 \end{equation}
 %
-The resultant matrix for a given $q$-vector, $B(q)$ is found from the product of the all the characteristic matrices,
+The resultant matrix for a given $q$-vector, $B(q)$, is found from the product of the all the characteristic matrices,
 %
 \begin{equation}
     B(q) = \prod_{n=0}^{n_{\text{max}}-1}{M_{n, n+1}}.
@@ -209,14 +209,14 @@ The characteristic matrix for each interface describes its reflectance and trans
 %
 
 This algorithm models the layers as perfectly sharp interfaces, which may not be strictly true.
-To account for roughness or interdiffusion correction terms are added to Equation~\ref{equ:fres}.
+To account for roughness or interdiffusion, correction terms are added to Equation~\ref{equ:fres}.
 The most common of these is N\'{e}vot and Croce Gaussian broadening \cite{nevot_caracterisation_1980}, in which the Fresnel reflectance is evaluated as,
 %
 \begin{equation}
     r_{n, n+1} = \frac{k_n - k_{n+1}}{k_n + k_{n+1}} \exp{(-2k_nk_{n+1}\sigma^2_{n,n+1})},
 \end{equation}
 %
-where, $\sigma_{n, n+1}$ is the interfacial roughness between the layers $n$ and $n+1$.
+where $\sigma_{n, n+1}$ is the interfacial roughness between the layers $n$ and $n+1$.
 Applying this dynamical approach to a perfectly flat silicon surface is shown in Figure~\ref{fig:dyna}.
 There is a clear difference between the kinematic and dynamical approaches as $q \to 0$, with the dynamical approach adhering to the physical constraint that causes the breakdown of the kinematic approach. %WP: Would it be useful to show exact calculations for silicon substrate (probably in supplementary materials)?
 %
@@ -229,27 +229,27 @@ There is a clear difference between the kinematic and dynamical approaches as $q
 
 Figure~\ref{fig:rough} shows the effect that increasing roughness can have on the scattering length density of some system, in this case \ce{D2O} on a silicon substrate.
 Notice that as the roughness gets to values similar to half the layer thickness, artifacts appear in the scattering length density profile.
-Below, where the roughness is too large, the scattering length density is less then the substrate scattering length density.
+Below, where the roughness is too large, the scattering length density is less than the substrate scattering length density.
 % AJC Should we give the slicing example as a way to overcome this issue? Also I think we should make it explicit that not only is the SLD unphysical but it does not match the simulated reflectivty curve.
 This is unphysical, and indicates at an important factor that we should try and account for by not allowing large roughnesses with respect to the layer thickness, a common rule of thumb is to use less than one quarter of the layer thickness.
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{roughness}
-    \caption{The effect of a roughness greater than a given layer's thickness on the scattering length density profile. The layer thickness is \SI{10}{\angstrom}. The scattering length densities are those of \ce{D2O} on a atomically flat silicon. The roughness of the water layer is varied from \SI{3}{\angstrom} (blue), through \SI{5}{\angstrom} (orange), to \SI{7}{\angstrom} (green). The full scattering length density profile is given in (a), while (b) represents a zoomed in representation.}
+    \caption{The effect of a roughness greater than a given layer's thickness on the scattering length density profile. The layer thickness is \SI{10}{\angstrom}. The scattering length densities are those of \ce{D2O} on an atomically flat silicon. The roughness of the water layer is varied from \SI{3}{\angstrom} (blue), through \SI{5}{\angstrom} (orange), to \SI{7}{\angstrom} (green). The full scattering length density profile is given in (a), while (b) represents a zoomed in representation.}
     \label{fig:rough}
 \end{figure}
 %
 
 \section{Instrumental resolution}
-In the analysis process, a resolution function associated with the instrumentation that the reflectometry measurement was performed on it typically introduced to the model. 
+In the analysis process, a resolution function associated with the instrumentation that the reflectometry measurement was performed on is typically introduced to the model. 
 This ensures greater accuracy in the modelled reflectometry to the experiment.
 These resolution functions are non-trival to define, however, the majority of reflectometry instruments will be able to offer information about the appropriate function to use.
 
 Here, we will briefly discuss the introduction of a simple Gaussian resolution function with a constant $\frac{\text{d}q}{q}$.
-The Gaussian function is centred on a given wavevector, $q$, and has a width of at half maximum of $\text{d}q$.
-For each $q$-value in the unsmeared data, a Gaussian function is produced which is convolved with the unsmeared to produce data that includes some description of the instrumental resolution.
+The Gaussian function is centred on a given wavevector, $q$, and has a width at half maximum of $\text{d}q$.
+For each $q$-value in the unsmeared data, a Gaussian function is produced which is convolved with the unsmeared data to produce data that includes some description of the instrumental resolution.
 Typically, this convolvutional smearing is included in the reading of the experimental data.
-However, the resolution function used by a given software package may not be an accurate description of that from the instrument, therefore, we recommend discussing this with the members of instrument staff.
+However, the resolution function used by a given software package may not be an accurate description of that from the instrument, therefore we recommend discussing this with the members of instrument staff.
 More information about the resolution function can be found in the work of van Well and Fredrikze \cite{vanwell_resolution_2005} and Nelson and Dewhurst \cite{nelson_towards_2013,nelson_towards_2014}
 
 \section{Ill posedness - the phase problem}
@@ -288,7 +288,7 @@ As $\rho'(z)$ is purely real and in both examples is only composed of $\delta$ f
 \end{itemize}
 As the scattering length density profiles of both samples translate into the same ACF, it is now not surprising the similarity between their reflectivity curves.
 
-A deeper discussion on the phase problem and some techniques that have been developed to tackle it are described in the work by Majkrzak \emph{et al.} \cite{majkrzak_phase_2003}. Here, they give an overview of several phase-sensitive experimental methods and claim that any ambiguity in a scattering length density profile obtained by these, is a consequence only of the limited $q$ range over which reflectivities can be measured.
+A deeper discussion on the phase problem and some techniques that have been developed to tackle it are described in the work by Majkrzak \emph{et al.} \cite{majkrzak_phase_2003}. Here, they give an overview of several phase-sensitive experimental methods and claim that any ambiguity in a scattering length density profile obtained by these is a consequence only of the limited $q$ range over which reflectivities can be measured.
 In a similar fashion, Koutsioubas \cite{koutsioubas_model_2019} proposes a model-independent method which, when applied to multiple solvent contrast data, should lead to reliable reconstructions of the interfacial structure without the need for any a priori assumptions.
 
 However, even when the phase problem can be theoretically alleviated, reflectivity curves from different scattering length density profiles may still be close enough to one another to be indistinguishable by finite-resolution experiments, effectively keeping the analysis of reflectometry profiles in the realm of ill-posed non-invertible problems.
@@ -296,7 +296,7 @@ As such, reflectometry data analysis demands for advanced trial-and-error fittin
 
 \section{Global optimisation}
 
-The recursive method described above gives an accurate method to obtain a model reflected intensity.
+The recursive method described above gives an accurate method to obtain a model of reflected intensity.
 However, this is just the first step in the analysis of a neutron reflectometry dataset.
 Now, we are interested in optimising our model such that the reflected intensity from it matches our experimental data as best as possible.
 This is the problem of parameter optimisation, which is a broad area of mathematics and computer science that we will not dwell on here. 
@@ -320,7 +320,7 @@ Figure~\ref{fig:likelihood} shows the maximum likelihood model for some experime
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{likelihood}
-    \caption{The maximum likelihood fit, the blue data points indicate some experimental data, while the yellow line shows the maximum likelihood model fit to this dataset and the green line show another model (which doesn't maximise the likelihood).}
+    \caption{The maximum likelihood fit, the blue data points indicate some experimental data, while the yellow line shows the maximum likelihood model fit to this dataset and the green line shows another model (which doesn't maximise the likelihood).}
     \label{fig:likelihood}
 \end{figure}
 %
@@ -389,18 +389,18 @@ The analysis of a reflectometry model can take advantage of contrast variation, 
 However, we note here that, the phrase ``global optimisation'' is often used to describe the analysis of multiple contrasts of the same structure.
 This is where a single structural model is used for the analysis of multiple measurements, but the scattering length densities are varied based on the particular contrasts under investigation.
 This method has been used to recover the phase information in neutron reflectometry analysis \cite{majkrzak_exact_1995,majkrzak_first_2000,majkrzak_phase_2003,koutsioubas_model_2019}.
-However, it is also a tool in model-dependent analysis, as it reduces the number of local minimia in the parameter space.
+However, it is also a tool in model-dependent analysis, as it reduces the number of local minima in the parameter space.
 Typically, a global (here meaning multiple contrasts) optimisation criteria is used.
 For example, the average or summed (log-)likelihood across all of the different measurements and model reflectometries.
 
 \section{Uncertainty quantification}
 Reflectometry measurements offer an average description of the out of plane structure of a material.
-This means that it is pragmatic to describe the uncertainties in the values of our model parameters in same fashion.
+This means that it is pragmatic to describe the uncertainties in the values of our model parameters in the same fashion.
 In this section, we will introduce two potential methods to determine the uncertainty on a set of model parameters.
 
 The first is computationally straightforward and is substantially more common.
 This is where the parameter uncertainties are found from the Hessian matrix of the optimisation space, where the uncertainties are the square-root of the matrix diagonal.
-The previous sentence introduced a lot a terminology that may not be familiar, however we shall work through it slowly.
+The previous sentence introduced a lot of terminology that may not be familiar, however we shall work through it slowly.
 The above optimisation method, differential evolution, is what is referred to as a stochastic method, where steps taken arise from a randomly determined process.
 However, another common type of optimisation methods are known as gradient methods, where the gradient of the optimisation space at a given point is calculated and this is used to determine the next position.
 Consider maximising the likelihood for a reflectometry model fit, you would like to make steps that increase the likelihood to reach the maximum, so calculating the gradient will be able to tell you in which direction to travel.
@@ -419,7 +419,7 @@ This means it is an $i\times i$ matrix, where $i$ is again the number of model p
 If the parameter distribution is Gaussian in shape then the second derivative at the Gaussian maximum will give the variance of that distribution.
 Therefore, when these gradient approaches are used, the Hessian matrix is calculated and the diagonal of that matrix gives the uncertainty in each of the parameters.
 The off-diagonal elements contain information about the covariance between different parameters, however this is rarely leveraged and the covariances are taken to be negligible.
-Additionally, we note that often the Hessian is not calculated in an optimisation so the Jacobian matrix (the first derivative analogue of the Hessian) is used to estimate Hessian matrix.
+Additionally, we note that often the Hessian is not calculated in an optimisation so the Jacobian matrix (the first derivative analogue of the Hessian) is used to estimate the Hessian matrix.
 
 The determination of parameter uncertainties from the Hessian matrix is dependent on two major assumptions about the parameter space:
 \begin{enumerate}
@@ -475,24 +475,24 @@ In this tutorial, we won't say any more on this subject, but if you are interest
 
 \section{Over-fitting}
 
-When defining a model care must be taken to balance the complexity of the model with the fit to the data.
+When defining a model, care must be taken to balance the complexity of the model with the fit to the data.
 By using too few parameters we risk that important structural features are not covered by the model and that fit to the data is sub-optimal. 
 However over-parameterising the model may lead to over-fitting to the data and therefore deriving false conclusions about the measured sample. 
 The latter issue is particularly problematic for reflectometry data, for which information content/density is typically low. 
 
 Different strategies have been used to address over-fitting in reflectometry. 
 Typically a ``rule of thumb'' of choosing the most simple model that enables a description of the data has been applied. 
-Even though such method is easy to apply it requires prior knowledge about the sample, e.g. from different experimental technique, and making assumption about information content in the data, i.e. do we have enough information to support the model. 
-The information content can in principle be quantified directly from the data as has been widely demonstrated for small-angle scattering data, which also typically suffers from limited structural information \cite{Larsen_2018} or by validating model given the data. 
+Even though such method is easy to apply, it requires prior knowledge about the sample, e.g. from different experimental technique, and making assumptions about information content in the data, i.e. do we have enough information to support the model?
+The information content can in principle be quantified directly from the data as has been widely demonstrated for small-angle scattering data, which also typically suffers from limited structural information \cite{Larsen_2018} or by validating model given the data. %What does the previous sentence mean, like the 'or by validating model given the data' part?% 
 The example of the latter approach uses Bayesian model selection framework to compare models with different numbers of parameters to determine which offers the maximum information without over-fitting \cite{hughes_model_selection_2019, mccluskey_general_2020}. 
 While this approach provides rigorous framework for finding an ``optimal'' model it is also important to note that it depends on the prior probabilities chosen for each of the parameters.
-The problem of finding an optimal model can also be inverted to another task of acquiring ``optimal'' data that can support given model. 
+The problem of finding an optimal model can also be inverted to another task of acquiring ``optimal'' data that can support a given model. 
 Treece et al. \cite{Treece_2019} developed a method based on Bayesian statistics and information theory that quantifies information gain from reflectometry experiments with the purpose of guiding experimental design. 
 
 Regardless of the method used to mitigate over-fitting, we are limited to information covered by the data. 
 To overcome this limitation one can supplement data with the information from other techniques. 
 This can be done by constraining model parameters with values obtained from other experiments or by simultaneously fitting model against multiple experimental data sets. 
-These can be other reflectometry measurements (e.g. from contrast variation) or from different technique (e.g. combination of X-ray and neutron reflectometry data). 
+These can be other reflectometry measurements (e.g. from contrast variation) or from different techniques (e.g. combination of X-ray and neutron reflectometry data). 
 This can however be challenging because various data may differently contribute to the information content and proper reweighing needs to be performed. 
 Bayesian statistics may be alleviate these limitations, however proper frameworks need to be established.   
  
@@ -501,7 +501,7 @@ The aim of this document was to give an introduction to some of the mathematical
 We have looked at how reflectometry is calculated from a layer model description of the scattering length density profile, and why the kinematic approach fails.
 Then we have discussed the importance of the differential evolution algorithm in reflectometry analysis and detailed the operation of this algorithm.
 Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty quantification for model-dependent analysis, with particular importance for reflectivity discussed.
-While not exhaustive, we hope that this document will give you the confidence in understanding to look in more detail into how the analysis of reflectometry measurements are performed.
+While not exhaustive, we hope that this document will give you the confidence and understanding to look in more detail into how the analysis of reflectometry measurements are performed.
 
 \section*{Author Contributions}
 ARM wrote the first draft of this text, with JMCL, JFKC, JHD, ARJN, WP, and TS offering additional content and editing.
