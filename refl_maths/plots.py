@@ -13,6 +13,7 @@ np.random.seed(2)
 
 c = _fig_params.colors
 
+print(c)
 
 def kine():
     # kinematic approximation for reflectivity
@@ -218,7 +219,7 @@ def ackley():
         for j in range(ys.size):
             es[i, j] = ackley(np.array([xs[i], ys[j]]))
 
-    fig = plt.figure(figsize=(10, 3.304*2.421))
+    fig = plt.figure(constrained_layout=True, figsize=(10, 3.304*2.421))
     ax = fig.add_subplot(111)
     im = ax.contourf(ys, xs, es, 100, cmap="Blues")
     for i in range(route.shape[2]):
@@ -272,7 +273,7 @@ def mcmc():
 
     history = sampler.get_chain(discard=100, thin=1, flat=True)
 
-    plt.figure(figsize=(10, 5.1625*2.2))
+    plt.figure(constrained_layout=True, figsize=(10, 5.1625*2.2))
     gs = gridspec.GridSpec(3, 2)
 
     ax1 = plt.subplot(gs[2, :])
@@ -327,13 +328,13 @@ def mcmc():
 
 def roughness():
     sld1 = SLD(0, 0)
-    sld2 = SLD(6.335, 0)
-    sld3 = SLD(2.074, 0)
+    sld2 = SLD(64.405, 0) #ni
+    sld3 = SLD(35.799, 0) #ti
 
     layer1 = sld1(0, 0)
     layer3 = sld3(10, 0)
 
-    fig = plt.figure(figsize=(10, 7.5/2))
+    fig = plt.figure(constrained_layout=True, figsize=(10, 7.5/2))
     gs = gridspec.GridSpec(1, 3)
     ax1 = plt.subplot(gs[0:2])
     ax2 = plt.subplot(gs[2])
@@ -343,7 +344,7 @@ def roughness():
 
         ax1.plot(*structure.sld_profile())
         ax2.plot(*structure.sld_profile())
-    ax2.set_ylim(1.6, 2.6)
+    ax2.set_ylim(30, 40)
     ax2.set_xlim(5, 15)
     ax1.axhline(sld3.real, color='k', alpha=0.3)
     ax2.axhline(sld3.real, color='k', alpha=0.3)

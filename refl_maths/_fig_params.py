@@ -10,6 +10,16 @@ from collections import OrderedDict
 from matplotlib import rcParams, cycler
 import seaborn as sns
 
+from matplotlib import rc
+from matplotlib import pyplot as plt
+from matplotlib import font_manager
+font_dirs = ['/Users/andrewmccluskey/software/Fonts/']
+font_files = font_manager.findSystemFonts(fontpaths=font_dirs)
+for font_file in font_files:
+    font_manager.fontManager.addfont(font_file)
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = 'Helvetica Neue'
+
 sns.set_palette('colorblind')
 colors = sns.palettes.SEABORN_PALETTES['colorblind']
 

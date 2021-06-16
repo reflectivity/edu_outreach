@@ -8,7 +8,7 @@
 \usepackage{graphicx}
 \usepackage{dcolumn}
 \usepackage{bm}
-\usepackage[separate-uncertainty=true]{siunitx}
+\usepackage[separate-uncertainty=true,scientific-notation=true]{siunitx}
 \usepackage{mhchem}
 \usepackage{tikz}
 \usepackage{tikzscale}
@@ -22,12 +22,17 @@
 \begin{document}
 
 \title{A tutorial on the model-dependent analysis of neutron and X-ray reflectometry}% Force line breaks with \\
-\thanks{Modified from a document prepared for the ISIS Neutron Training Course in March 2020, which was unfortunately cancelled due to the COVID-19 pandemic}%
-
+\thanks{This work was the fortuitous result of the COVID-cancellation of the ISIS Neutron Training Course in March 2020.}
+    
 \author{Andrew R. McCluskey}
-  \email{andrew.mccluskey@diamond.ac.uk}
+  \email{andrew.mccluskey@ess.eu}
   \email{a.r.mccluskey@bath.ac.uk}
+  \affiliation{Data Management and Software Centre, European Spallation Source ERIC, Ole Maal{\o}es vej 3, 2200 Copenhagen, DK}
+  \affiliation{Department of Chemistry, University of Bath, Claverton Down, Bath BA2 7AY, UK}
+\author{Tom Arnold}
+  \affiliation{European Spallation Source ERIC, P.O. Box 176, SE-221 00 Lund, Sweden}
   \affiliation{Diamond Light Source, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot, OX11 0DE, UK}
+  \affiliation{ISIS Pulsed Neutron and Muon Source, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot, Oxfordshire, OX11 0QX, UK}
   \affiliation{Department of Chemistry, University of Bath, Claverton Down, Bath BA2 7AY, UK}
 \author{Juan M. Carmona Loaiza}
   \affiliation{J\"ulich Centre for Neutron Science (JCNS) at Heinz Maier-Leibnitz Zentrum (MLZ).
@@ -43,7 +48,9 @@
 \author{Andrew R. J. Nelson}
   \affiliation{Australian Centre for Neutron Scattering, Australian Nuclear Science and Technology Organisation, Locked Bag 2001, Kirrawee DC, NSW 2232, Australia}
 \author{Wojciech Potrzebowski}
-  \affiliation{Data Management and Software Centre, European Spallation Source ERIC, Ole Maaloes Vej 3, 2200 Copenhagen, Denmark}
+  \affiliation{Data Management and Software Centre, European Spallation Source ERIC, Ole Maal{\o}es vej 3, 2200 Copenhagen, DK}
+\author{Mark L. Schlossman}
+  \affiliation{Department of Physics, University of Illinois at Chicago, Illinois 60607, USA}
 \author{Tim Snow}
   \affiliation{Diamond Light Source, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Didcot, OX11 0DE, UK}
   \affiliation{School of Chemistry, University of Bristol, Bristol, BS8 1TS, UK}
@@ -56,60 +63,76 @@
              %  but any date may be explicitly specified
 
 \begin{abstract}
-Reflectometry analysis is an inherently ill-posed problem; the well known phase problem leads to different structures whose scattering signals are very similar.
-This leads to the use of model-dependent analysis to interpret the experimental data, where information that is ``known'' about the system is integrated into the analysis.
-This tutorial aims to introduce the mathematics that underlies the use of model-dependent analysis in neutron reflectometry.
-We hope that those that are well experienced in reflectometry find it as useful as those who are just about to experience their first reflectometry experiment.
+    Neutron and X-ray reflectometry are powerful experimental techniques for probing the structure of surfaces and buried interfaces. 
+    However, the analysis of neutron and X-ray analysis is an inherently ill-posed problem; the well-known phase problem leading to different structures whose scattering signals are very similar. 
+    This leads to the use of model-dependent anlaysis processes to interpret the experimental data, where information that is ``known'' about the system is integrated into the analysis. 
+    This tutorial aims to introduce model-dependent analysis method for neutron and X-ray reflectometry methods, focusing on areas of similarity between the two techniques and signposting where they differ with relevant further reading, and discuss in detail its important mathematical aspects.
+    We hope that those that are well experienced in reflectometry methods will find this resource as useful as those who are about to perform these first experiment. 
 \end{abstract}
 
-%ARJN what about a quick intro to what NR/XRR measure? If we don't give that intro (coz this is just 'maths'), then we should perhaps reference e.g. Sivia (elementary intro)/some other intro)
-%ARM I think Christy Kinane will be adding something like this. 
 \maketitle
 
-% I know that it is common/precedent to start by looking at the Born approximation, but I wonder if, in paper format, it is just worth pointing out that multiple reflections invalidate Born and something iterative needs to be done? J.C.
-%ARJN I've never looked at the BA first (apart from possibly looking at the FT briefly).
-%ARM I know that in Sivia (Elementary Scattering Theory) the BA/FT is introduced first, and I suppose that the context of this is that the previous chapter introduces scattering in the language of a FT. I am not religious to BA/FT coming first, but I think it is good from a historical perspective given that some paper use this appoarch. 
-
 \section{Introduction}
-The mathematical concepts that underpin unpolarised reflectometry are not typically affected by whether the probing radiation is the neutron or a beam of X-rays.
-Therefore, we will discuss these agnostically and only reference a given radiation source when particularly relevant.
-Additionally, this work will focus only on unpolarised, nonmagnetic reflectometry analysis.
+
+% What do NR and XRR measure?
+
+Neutron and X-ray reflectometry are experimental techniques where the probing radiation (the neutron or X-rays) are incident at a shallow angle on an interface. 
+The radiation is elastically scattered normal to the surface with a scattering angle equal to the incidence angle, and detected using some detector (Figure~\ref{fig:beamline}), which is radiation specific \cite{pietropaolo_neutron_2020,looker_synchrotron_2020}.
+Specular reflectometry measurements are where the incident angle ($\theta_i$) and scattered angle ($\theta_r$) are the same and the scattered angle is only non-zero in the $z$-dimension. 
+The condition where $\theta_i \neq \theta_r$ and there is no scattering in the $x/y$-plane represents off-specular scattering \cite{richardson_study_1997,dai_comparative_2011}, while where scattering is present in the $x/y$-plane is commonly known as grazing incidence scattering, grazing incidence small angle scattering or grazing incidence wide angle scattering \cite{renaud_probing_2009,smilgies_scherrer_2009,hexemer_advanced_2015}. 
+These measurements can be complementary to specular reflectometry, but are not the focus of this work. 
+%
+\begin{figure}[t]
+    \includegraphics[width=0.4\textwidth]{beamline}
+    \caption{A pictorial representation of a reflectometry beamline with a vertical scattering geometry; where the scattering angle, $\theta$ is shown and the prodbing radiation beam is given as a thick solid black line. Note, that the radiation is only scattered in the $z$-dimension, such that the $\theta_i=\theta_r$, and not in the $x/y$-plane.}
+    \label{fig:beamline}
+\end{figure}
+%
+
+Typical systems investigated with specular reflectometry methods include, but are not limited to, thin films \cite{delcea_xray_2019} and chemical aggregation \cite{ma_unusual_2021} at interfaces, biological membranes \cite{john_large_2021} and magnetic nanostructures \cite{liu_coherent_2020}.
+Reflectometry methods can be used to probe the structure of essentially any nanostructured interface that offers sufficient contrast in the amount that the radiation is scattered. 
+This work will introduce and disucss the more mathematically directed elements of reflectometry data analysis; including the calculation of reflectivity from models, the effect of resolution on analysis and the importance of optimisiation methods and uncertainty quantification.
+To ensure brevity, it will not focus on the role of polarisation, either in neutron or X-ray, in the analysis of reflectometry data. 
 For those interested in polarised neutron reflectometry analysis, we suggest the work of Fitzsimmons, Toperverg and others \cite{fitzsimmons_applications_2005,zabel_polarized_2007,toperberg_neutron_2015}.
 
-The collected data (once normalised) is described in terms of reflected intensity, $R(q)$, which depends on the wavevector, $q$, and is measured as,
+This work will assume that the data has been reduced, including aspects such as background subtraction \cite{salah_data_2007} and normalisation. 
+The reduced data is described in terms of reflectivity, $R(q)$, which depends on the wavevector transfer normal to the interface (this dimension is commonly known as $z$ within the reflectometry community), written as $q_z$ or $q$, and is measured as, 
 %
 \begin{equation}
-    R(q) = \frac{\text{specular reflected intensity at $q$}}{\text{incident radiation intensity}},
+    R(q) = \frac{\text{specular reflected intensity at }q}{\text{incident radiation intensity}},
     \label{equ:refl}
 \end{equation}
 %
-where the denominator in Equation~\ref{equ:refl} is the total flux of X-rays or neutrons on the sample.
-The wavevector, $q$, depends on the scattering angle, $\theta$, and wavelength, $\lambda$, of the incident radiation, 
+where, the denominator is the total flux of neutrons or X-rays incident on the sample. 
+The wavevector transfer, $q$, depends on the scattering angle, $\theta$, and wavelength, $\lambda$ of the incident radiation, 
 %
 \begin{equation}
-    q = \frac{4\pi\sin{\theta}}{\lambda}.
+    q = \frac{4\pi\sin\theta}{\lambda}.
+    \label{equ:qz}
 \end{equation}
 %
-The full derivation of this elastic scattering wavevector can be found in the work of Sivia \cite{sivia_elementary_2011}. 
-It is this $R(q)$ that we want to calculate from our structural model and then compare with our data.
+The full derivation of this elastic scattering wavevector transfer can be found in the work of Sivia \cite{sivia_elementary_2011}. 
+The $R(q)$ in Equation~\ref{equ:refl} is the value that we can obtain from our structural model and compare with the data, and then through some iterative process improve the model. 
 
-The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single scattering event for each incident radiation particle, allows the reflected intensity to be calculated as follows \cite{sivia_elementary_2011},
+The Born approximation \cite{born_quantenmechanik_1926}, which assumes a single scattering event for each incident raditation particle, allows the reflectivity to be calculated as follows \cite{sivia_elementary_2011},
 %
 \begin{equation}
-    R(q) \approx \frac{16\pi^2}{q^4} \bigg| \int^{+\infty}_{-\infty}{\rho'(z)\exp{(-\mathrm{i} zq) \text{d}z} \bigg|^2},
+    R(q) \approx \frac{16\pi^2}{q^4} \bigg| \int^{+\infty}_{-\infty}{\langle\rho'(z)\rangle_{x,y}\exp{(-\mathrm{i} zq) \text{d}z} \bigg|^2},
     \label{equ:kine}
 \end{equation}
 %
-where $\rho'(z)$ is the first derivative of the scattering length density profile.
-The scattering length density profile is our model, a functional description of how the scattering length density varies with depth normal to the interface, $z$.
- The scattering length density of a material is calculated by summing over all the scattering lengths of all the different types of atoms in a material and dividing by the molecular volume (which itself can be calculated from the mass density of a material), $V_m$,
+where $\langle\rho'(z)\rangle_{x,y}$ is the first derivative of the scattering length density profile averaged over the x-y plane of the interface illuminated by the beam.
+The scattering length density profile is our model, a functional description of how the scattering length varies with depth normal to the interface, $z$. 
+Note that reflectometry measurements only contain information about the scattering length density profile as a function of $z$.
+The scattering length density of a material is calculated by summing over the scattering lengths of all of the different atoms in a material and dividing by the molecular volume (which itself can be found from the mass density of a material), $V_m$,
+%
 \begin{equation}
-    \rho_m = \sum_{i} \frac{b_i}{V_m}
-    \label{equ:sld}
+    \rho_m = \frac{\sum_i{b_i}}{V_m}.
 \end{equation}
- For neutrons $b_i$ are the coherent scattering lengths of a material \cite{sears1992, dianoux2003neutron}. For X-rays the scattering length of an atom is energy dependent \cite{xray_form_factor}, but to a first approximation can be calculated as $b_i = z_i  r_e$, where $z_i$ is the atomic number and $r_e$ is the classical electron radius, $2.817 \times 10^{-5} \AA$.
- 
-The approach based on Born Approximation outlined above  is referred to as the kinematic approach, and it has a significant problem that can be demonstrated by considering the simple case of a bare silicon surface \cite{sivia_elementary_2011}, which can be modelled with a Heaviside function, shown in Figure~\ref{fig:kine}(a),
+%
+For interactions with neutrons the scattering length of an atom is the coherent scattering length \cite{sears_neutron_1992,dianoux_neutron_2003}, while for X-rays the scattering length of an atom is energy dependent \cite{seltzer_xray_1995}, but to a first approximation can be calculated as $b_i = Z_ir_e$, where $Z_i$ is the atomic number and $r_e$ is the classical electron radius of $\SI{2.871e-5}{\angstrom}$. 
+
+The approach based on the Born Approximation outline above is referred to as the kinematic approach, and it has a significant problem that can be demonstrated by consider the simple case of a bare silicon surface \cite{sivia_elementary_2011}, which we will model with a Heaviside function, shown in Figure~\ref{fig:kine}(a), 
 %
 \begin{equation}
     \rho(z) =
@@ -121,19 +144,19 @@ The approach based on Born Approximation outlined above  is referred to as the k
 %
 %
 \begin{figure}[t]
-    \includegraphics[width=0.49\textwidth]{kine}
+    \includegraphics[width=0.45\textwidth]{kine}
     \caption{A graphical representation of each aspect of the kinematic approach; (a) the Heaviside function describing the scattering length density profile for a bare silicon substrate, (b) the $\delta$-function arising from the first derivative of the function in (a), and (c) the resulting reflectometry profile, where the orange line at $R(q)$ = 1 identifies the breakdown between experiment and theory.}
     \label{fig:kine}
 \end{figure}
 %
-where, $\rho_{\text{Si}} = \SI{2.074e-6}{\angstrom^{-2}}$, the nuclear scattering length density for pure silicon.
-The first derivative of a Heaviside function is a scaled $\delta$-function, shown in Figure~\ref{fig:kine}(b),
+where, the scattering length density is that of silicon for neutrons, $\SI{2.074e-6}{\angstrom^{-2}}$. 
+The first derivative of a Heaviside function is a scaled $\delta$-function, shown in Figure~\ref{fig:kine}(b), 
 %
 \begin{equation}
     \rho'(z) = \rho_{\text{Si}}\delta(z).
 \end{equation}
 %
-Then, using Equation~\ref{equ:kine}, we can calculate the reflected intensity with respect to $q$,
+Then, using Equation~\ref{equ:kine}, the reflectivity can be calculated with respect to $q$, 
 %
 \begin{equation}
     \begin{aligned}
@@ -144,34 +167,35 @@ Then, using Equation~\ref{equ:kine}, we can calculate the reflected intensity wi
     \label{equ:baresi}
 \end{equation}
 %
-The result of Equation~\ref{equ:baresi} is shown in Figure~\ref{fig:kine}(c), where it is clear that the agreement with an experimental profile would be poor as $q \to 0$ \cite{majkrzak_exact_1998}, where the reflected intensity is greater than \num{1}.
-This violates the physical condition imposed by Equation~\ref{equ:refl}, with more neutrons being reflected than were incident in the first place.
-The breakdown of this kinematic approach is due to the assumption of the Born approximation that each incident radiation particle is only scattered once.
-The reflectometry geometry, where a large path length arises from the shallow incidence angle means that multiple scattering events are likely, rendering the kinematic approach invalid.
+The result of Equation~\ref{equ:baresi} is shown in Figure~\ref{fig:kine}(c), where it is clear that the agreement with an experimental profile would be poor as $q \to 0$ \cite{majkrzak_exact_1998} at which the reflectivity would be greater than \num{1}. 
+This violates the physical condition imposed by Equation~\ref{equ:refl}, with more of the probing radiation being reflected than were incident in the first place. 
+The Born Approximation is reasonably accurate when $q > 4q_c$, where $q_c$ is the critical wavevector for total reflection. 
+Although it is not often used to fit data, the utility of the Born Approximation is found in the analytical simplicity, providing insight into the form of the reflectivity curve for a given model \cite{pershan_liquid_2012}.
 
 \section{Dynamical approach}
-The breakdown of the kinematic approach leads to the application of the Abel\`{e}s matrix formalism \cite{abeles_sur_1948} or Parratt \cite{parratt_surface_1954} recursive model for the reflection of light at a given number of stratified interfaces, also referred to as the dynamical approach.
-This is an alternative method for calculating the reflected intensity from a model, however, now the model is a series of layers of different scattering length density.
-The probing radiation can be either reflected or refracted at the interface between each of the layers.
+\label{sec:dyna}
+It is possible to obtain higher accuracy through the use of the Abel\`{e}s matrix formalism \cite{abeles_sur_1948} or Parratt \cite{parratt_surface_1954} recursive model for the reflection of light at a given number of stratified interfaces, also referred to as the dynamical approach. 
+This alternative method for calculating the reflected intensity from a model, where the model is now a series of layers each with a given scattering length density. 
+The probing radiation is then reflected and transmitted at the interface between each of the layers.
+Figure~\ref{fig:refr} shows the paths of the waves through a simple two layer system, where layer \num{0} is a vacuum above the sample. 
+It is clear, by analogy to Bragg's law, how the two waves, labelled $r$, could interfere constructively or destructively depending on the thickness of the layer \num{1}, $d$. 
 %
 \begin{figure}[t]
     \includegraphics[width=\linewidth]{dynamic}
-    \caption{A schematic diagram showing the reflected ($r$) and transmitted ($t$) waves when an incident ($i$) wave enters an interface of thickness $d$.}
+    \caption{A schematic diagram showing the reflected ($r$) and transmitted ($t$) waves when an incident ($i$) wave enters an interface of thickness $d$. The angle between the incident wave and the surface is the scattering angle $\theta$.}
     \label{fig:refr}
 \end{figure}
 %
-Figure~\ref{fig:refr} shows the refraction and reflections from a simple two layer system, where layer \num{0} is a vacuum above the sample.
-It is clear, by analogy to Bragg's law, how the two waves, labelled $r$, could interfere constructively or destructively depending on the thickness of layer \num{1}, $d$.
 
-The generalisation of this approach to any number of layers is possible and enables the reflected intensity to be calculated at each value of $q$ that was measured.
-The incident radiation is refracted by each of the interfaces, with the wavevector normal to the surface, $k_n$, in each layer being given by,
+The generalisation of this approach to any number of layers is possible and enables the reflected intensity to be calculated at each value of $q$ that was measured. 
+The incident radiation is reflected by each of the interfaces, with the wavevector normal to the surface, $k_n$, in each layer being given by, 
 %
 \begin{equation}
     k_n = \sqrt{k_0^2 - 4\pi(\rho_n - \rho_0)},
 \end{equation}
 %
-where, $k_0 = 0.5q$.
-The Fresnel reflectance between layers $n$ and $n+1$, $r_{n, n+1}$, can then be found along with the phase factor, $\beta_n$, for the layer $n$,
+where $k_0 = 0.5q$. 
+The Fresnel reflectance between layers $n$ and $n+1$, $r_{n, n+1}$, can then be found along with the phase factor, $\beta_n$, for the layer $n$, 
 %
 \begin{equation}
     r_{n, n+1} = \frac{k_n - k_{n+1}}{k_n + k_{n+1}},
@@ -180,48 +204,42 @@ The Fresnel reflectance between layers $n$ and $n+1$, $r_{n, n+1}$, can then be 
 %
 %
 \begin{equation}
-\begin{aligned}
-\beta_n = ik_nd_n, \\
-\beta_0 = 0 \\
-\end{aligned}
+    \begin{aligned}
+        \beta_n &= ik_nd_n, \\
+        \beta_0 &= 0. \\
+    \end{aligned}
 \end{equation}
 %
-From the Fresnel reflectance and phase factor, a characteristic matrix for the interface between two layers, $M_{n, n+1}$, can be constructed,
+From the Fresnel reflectance and phase factor, a characteristic matrix for the interface between two layers, $M_{n, n+1}$, can be constructed, 
 %
 \begin{equation}
     M_{n, n+1} =
     \begin{bmatrix}
         \exp{\beta_n} & r_{n,n+1}\exp{-\beta_n} \\
-        r_{n,n+1}\exp{\beta_n} & \exp{\beta_n}
+        r_{n,n+1}\exp{\beta_n} & \exp{\beta_n}.
     \end{bmatrix}
 \end{equation}
 %
-The resultant matrix for a given $q$-vector, $B(q)$, is found from the product of the all the characteristic matrices,
+The resultant matrix for a given $q$-vector, $B(q)$, is found from the product of all of the characteristic matrices, 
 %
 \begin{equation}
     B(q) = \prod_{n=0}^{n_{\text{max}}-1}{M_{n, n+1}}.
 \end{equation}
-The characteristic matrix for each interface describes its reflectance and transmittance, with the product describing the reflectance and transmittance propagated over all the interfaces. This can then be used to calculate the overall reflectance and reflectivity of the system,
+%
+The characteristic matrix for each interface describes its reflectance and transmittance, with the product describing the reflectance and transmittance propagated through all the interfaces. 
+This can then be used to calculate the overall reflectance and reflectivity of the system,
 %
 \begin{equation}
-\begin{aligned}
-    r =  \frac{B_{0,1}(q)}{B_{0,0}(q)} \\
-    R(q) = r\bar r
-\end{aligned}
+    \begin{aligned}
+        r &=  \frac{B_{0,1}(q)}{B_{0,0}(q)}, \\
+        R(q) &= r\bar r.
+    \end{aligned}
 \end{equation}
 %
 
-This algorithm models the layers as perfectly sharp interfaces, which may not be strictly true.
-To account for roughness or interdiffusion, correction terms are added to Equation~\ref{equ:fres}.
-The most common of these is N\'{e}vot and Croce Gaussian broadening \cite{nevot_caracterisation_1980}, in which the Fresnel reflectance is evaluated as,
-%
-\begin{equation}
-    r_{n, n+1} = \frac{k_n - k_{n+1}}{k_n + k_{n+1}} \exp{(-2k_nk_{n+1}\sigma^2_{n,n+1})},
-\end{equation}
-%
-where $\sigma_{n, n+1}$ is the interfacial roughness between the layers $n$ and $n+1$.
-Applying this dynamical approach to a perfectly flat silicon surface is shown in Figure~\ref{fig:dyna}.
-There is a clear difference between the kinematic and dynamical approaches as $q \to 0$, with the dynamical approach adhering to the physical constraint that causes the breakdown of the kinematic approach. %WP: Would it be useful to show exact calculations for silicon substrate (probably in supplementary materials)?
+Applying this dynamical approach to a flat silicon surface is shown in Figure~\ref{fig:dyna}.
+There is a clear difference between the kinematic and dynamical approaches as $q \to 0$, with the dynamical approach adhering to the physical constraint that is not found in the kinematic approach. 
+Figure~\ref{fig:dyna} also illustrates the accuracy of the Born approximation for $q > 4 q_c$, where $4q_c\approx\SI{0.04}{\angstrom^{-1}}$.%WP: Would it be useful to show exact calculations for silicon substrate (probably in supplementary materials)?
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{dyna}
@@ -230,21 +248,58 @@ There is a clear difference between the kinematic and dynamical approaches as $q
 \end{figure}
 %
 
-Figure~\ref{fig:rough} shows the effect that increasing roughness can have on the scattering length density of some system, in this case \ce{D2O} on a silicon substrate.
-Notice that as the roughness gets to values similar to half the layer thickness, artifacts appear in the scattering length density profile.
-Below, where the roughness is too large, the scattering length density is less than the substrate scattering length density.
-% AJC Should we give the slicing example as a way to overcome this issue? Also I think we should make it explicit that not only is the SLD unphysical but it does not match the simulated reflectivty curve.
-This is unphysical, and indicates at an important factor that we should try and account for by not allowing large roughnesses with respect to the layer thickness, a common rule of thumb is to use less than one quarter of the layer thickness.
+The dynamical method defines the layers as perfectly sharp interfaces, which may not be strictly true. 
+To account for potential roughness or interdiffusion, correction terms are added to Equation~\ref{equ:fres}. 
+The most common of these is N\'{e}vot Croce Gaussian broadening \cite{nevot_caracterisation_1980}, in which the Fresnel reflectance is evaluated as, 
+%
+\begin{equation}
+    r_{n, n+1} = \frac{k_n - k_{n+1}}{k_n + k_{n+1}} \exp{(-2k_nk_{n+1}\sigma^2_{n,n+1})},
+\end{equation}
+%
+where $\sigma_{n, n+1}$ is the interfacial roughness between the layers $n$ and $n+1$.
+
+Figure~\ref{fig:rough} shows the effect that increasing roughness can have on the scattering length density of some system, in this case a \SI{10}{\angstrom} layer of nickel on titanium. 
+Notice, that as the roughness increases to values similar to half of the layer thickness, artifacts begin to appear in the scattering length density profile \cite{tolan_xray_1999}. 
+If the roughness is too large, it begins to effect the scattering length density on the next layer in the material. 
+Furthermore, as the roughness correction for the Fresnel reflectance only influences the indiviudal interfaces, this unphysical roughness is not represented in the model reflectometry. 
 %
 \begin{figure}[t]
-    \includegraphics[width=0.49\textwidth]{roughness}
-    \caption{The effect of a roughness greater than a given layer's thickness on the scattering length density profile. The layer thickness is \SI{10}{\angstrom}. The scattering length densities are those of \ce{D2O} on an atomically flat silicon. The roughness of the water layer is varied from \SI{3}{\angstrom} (blue), through \SI{5}{\angstrom} (orange), to \SI{7}{\angstrom} (green). The full scattering length density profile is given in (a), while (b) represents a zoomed in representation.}
+    \includegraphics[width=0.45\textwidth]{roughness}
+    \caption{The effect of a large roughnes on the scattering length density profile. The material modelled is the X-ray scattering length denisty profile for a \SI{10}{\angstrom} thick layer of Ni on a Ti substrate at the interface with vacuum. The roughness between the vacuum and the Ni is varied from \SI{3}{\angstrom} (blue), through \SI{5}{\angstrom} (orange), to \SI{7}{\angstrom} (green). The full scattering length density profile is given in (a), while (b) represents a zoomed in representation.}
     \label{fig:rough}
 \end{figure}
 %
 
+% Microslicing 
+% AJC Should we give the slicing example as a way to overcome this issue? Also I think we should make it explicit that not only is the SLD unphysical but it does not match the simulated reflectivty curve.
+% Plot a microsliced reflectometry against that for the none sliced
+
+\section{The effect of resolution on analysis}
+
+% How is this used in analysis
+
+\section{Optimisation}
+
+% Local and global optimisation
+
+% Briefly metion multi-model optimsation?
+
+\section{Uncertainty quantification}
+
+% Gradient descent
+
+% Sampling methods
+
+\section{Overfitting}
+
+\section{Ill-posedness}
+
+% Autocorrelation function
+
+\section{Conclusions}
+
 \section{Instrumental resolution}
-In the analysis process, a resolution function associated with the instrumentation that the reflectometry measurement was performed on is typically introduced to the model. 
+In the analysis process, a resolution function associated with the instrumentation that the reflectometry measurement was performed on is typically introduced to the model.
 This ensures greater accuracy in the modelled reflectometry to the experiment.
 These resolution functions are non-trival to define, however, the majority of reflectometry instruments will be able to offer information about the appropriate function to use.
 
@@ -256,7 +311,7 @@ However, the resolution function used by a given software package may not be an 
 More information about the resolution function can be found in the work of van Well and Fredrikze \cite{vanwell_resolution_2005} and Nelson and Dewhurst \cite{nelson_towards_2013,nelson_towards_2014}
 
 \section{Ill posedness - the phase problem}
-%WP: I suggest moving this section towards end.  
+%WP: I suggest moving this section towards end.
 Figure \ref{fig:phase_problem_sld} shows two hypothetical samples of the same total thickness, consisting of one and two layers, deposited on a substrate with $\rho_s = \SI{2.07e-6}{\angstrom^{-2}}$.
 Even though the scattering length density depth profiles are distinctly different, the resultant reflectivity curves are virtually identical, with only a slight discrepancy at the first minimum.
 This ambiguity, known as \emph{the phase problem}, is an example of the information lost in diffraction experiments due to the inability of measuring the phase of the scattered wave (note that equation \ref{equ:kine} involves a modulus-squared).
@@ -265,7 +320,7 @@ This ambiguity, known as \emph{the phase problem}, is an example of the informat
     \caption{The phase problem, (a) two different samples deposited on the same substrate with a scattering length density of $\rho_s$, (b) are indistinguishable from one another by looking only at their reflectivity curve $R(q)$.}
     \label{fig:phase_problem_sld}
 \end{figure}
-%WP: I think some gentle introduction to autocorelation function will be useful 
+%WP: I think some gentle introduction to autocorelation function will be useful
 A heuristic explanation for the phase problem can be built in terms of the auto-correlation function of $\rmd\rho/\rmd z$, which gives a real-space representation of the information contained in the reflectivity pattern,
 %
 \begin{equation}
@@ -299,14 +354,14 @@ As such, reflectometry data analysis demands for advanced trial-and-error fittin
 
 \section{Global optimisation}
 
-The recursive method described above gives an accurate method to obtain a model of reflected intensity.
+The recursive method described in Section~\ref{sec:dyna} gives an accurate method to obtain a model of reflected intensity.
 However, this is just the first step in the analysis of a neutron reflectometry dataset.
 Now, we are interested in optimising our model such that the reflected intensity from it matches our experimental data as best as possible.
-This is the problem of parameter optimisation, which is a broad area of mathematics and computer science that we will not dwell on here. 
+This is the problem of parameter optimisation, which is a broad area of mathematics and computer science that we will not dwell on here.
 %AJC Should a reference of a review be included?
 However, we will introduce the basics of optimisation and discuss the most common global optimisation method used in reflectometry.
 
-When we measure a reflectometry profile, we measure the reflected intensity, and some uncertainty in that measurement, at discrete points in the wavevector, $R(q) \pm \delta R(q)$.
+When we measure a reflectometry profile, we measure the reflectivity, and some uncertainty in that measurement, at discrete points in the wavevector, $R(q) \pm \delta R(q)$.
 Using the recursive method discussed above, we can calculate a model reflected intensity at these same $q$ values, $R_m(q)$.
 We then aim to reduce the difference between the measured and modelled reflected intensity through the optimisation (maximisation) of the likelihood, $L$, % AJC Maybe lead in with the use of Chi^2 and how the Likelihood function relates. Also that usually the negative log likelihood function is used for easier problem optimisation for computation
 %
@@ -317,27 +372,27 @@ We then aim to reduce the difference between the measured and modelled reflected
     \end{aligned}
 \end{equation}
 %
-This parameter described the probability that the model $m$ accurately describes the observed reflectometry data.
-The aim in reflectometry modelling is to obtain a model reflectometry that has the maximum likelihood possible for the given experimental data.
+This parameter describes the probability that the model accurately represents the observed reflectometry data.
+The aim in reflectometry modelling is to obtain a model reflectivity that has the maximum likelihood possible for the given experimental data.
 Figure~\ref{fig:likelihood} shows the maximum likelihood model for some experimental data, in addition to another model which does not agree well with the data and therefore has a lower likelihood as a result.
 %
 \begin{figure}[t]
     \includegraphics[width=0.49\textwidth]{likelihood}
-    \caption{The maximum likelihood fit, the blue data points indicate some experimental data, while the yellow line shows the maximum likelihood model fit to this dataset and the green line shows another model (which doesn't maximise the likelihood).}
+    \caption{The maximum likelihood fit, the blue data points are experimental data, while the yellow line shows the maximum likelihood model fit to this dataset and the green line shows another model (which doesn't maximise the likelihood).}
     \label{fig:likelihood}
 \end{figure}
 %
 
-The global optimisation of a reflectometry model is a particularly difficult problem, this is due to the ill-posed nature of this data, this is where there are many reasonable solutions to a particular reflectometry profile.
-However, a particular global optimisation method has shown substantial utility in the fitting of reflectometry data \cite{varderlee_comparison_2007}: differential evolution \cite{StornPrice_1997_DE,wormington_characterization_1999}.
+The global optimisation of a reflectometry model is a particularly difficult problem, since there may be multiple solutions to a particular reflectometry profile.
+However, a particular global optimisation method has shown substantial utility in the fitting of neutron reflectometry data \cite{varderlee_comparison_2007}: differential evolution \cite{StornPrice_1997_DE,wormington_characterization_1999}.
 This has lead to the inclusion of this method in many common reflectometry analysis packages \cite{bjorck_fitting_2011,nelson_refnx_2019,kienzle_ncnr_nodate}.
 
 Differential evolution is an iterative, genetic algorithm, designed to mimic the evolution processes observed in biology \cite{holland_adaptation_1992}.
 The method consists of two vectors, the parent population $\mathbf{p}$, and the offspring population, $\mathbf{o}$.
 These vectors are of shape $(i \times j)$, where $i$ is the number of parameters in the model and $j$ is the number of candidate solutions being considered.
-The offspring population is generated as a result of some trail method, here we will discuss only a simple classical trail method.
+The offspring population is generated as a result of some trial method, here we will discuss only a simple classical trial method.
 
-A classical trail method consists of two stages, mutation and recombination.
+A classical trial method consists of two stages, mutation and recombination.
 The mutation stage involves the creation of a mutant population, $\mathbf{m}$.
 The magnitude of the mutation is dependent on the first of our hyperparameters, the mutation constant, $k_m$,
 %
@@ -396,8 +451,26 @@ However, it is also a tool in model-dependent analysis, as it reduces the number
 Typically, a global (here meaning multiple contrasts) optimisation criteria is used.
 For example, the average or summed (log-)likelihood across all of the different measurements and model reflectometries.
 
+\section{Contrast variation}
+The neutron reflectometry profile produced from some system depends on the three factors: 
+%
+\begin{itemize}
+    \item the instrument being used to measure the reflectivity data,
+    \item the denisty distribution perpendicular to the interface,
+    \item the interaction between the radiation and the matter under investigation.
+\end{itemize}
+%
+This final factor is the ``scattering contrast''; a very useful tool in the analysis of neutron reflectometry data. 
+The scattering contrast is defined by the scattering lengths of the atoms scattering the neutrons. 
+The value of the scattering length of given atom varies unsystematically with respect to the atomic number and significantly between isotopes of the same element. 
+Furthermore, it is dependent on the magnetic state of the atom, allowing the magnetic structure of materials to be probed in addition to the nuclear structure.
+ 
+
+
+
+
 \section{Uncertainty quantification}
-Reflectometry measurements offer an average description of the out of plane structure of a material.
+Reflectivity measurements offer an average description of the out of plane structure of a material.
 This means that it is pragmatic to describe the uncertainties in the values of our model parameters in the same fashion.
 In this section, we will introduce two potential methods to determine the uncertainty on a set of model parameters.
 
@@ -434,7 +507,7 @@ One such method for this is Markov-chain Monte Carlo (MCMC), which samples the p
 Typically, MCMC is used on already optimised solutions to a particular problem. In reflectometry analysis it is usually applied after the differential evolution has optimised the structure.
 In addition to being able to quantify the inverse uncertainties (the name given to the uncertainties in the model parameters), MCMC also offers a more complete understanding of the correlations between different parameters \cite{gilks_markov_1995}, which is particularly important in the ill-posed reflectometry analysis.
 
-Once an optimised set of model parameters, $\theta$, are obtained which maximise the likelihood, $L$, some random perturbation is applied,
+Once an optimised set of model parameters, $\theta$, are obtained which maximise the likelihood, $L$, some random perturbation is applied to produce a new set of model parameters, $\Theta$,
 %
 \begin{equation}
     \Theta = \theta + aR,
@@ -479,40 +552,37 @@ In this tutorial, we won't say any more on this subject, but if you are interest
 \section{Over-fitting}
 
 When defining a model, care must be taken to balance the complexity of the model with the fit to the data.
-By using too few parameters we risk that important structural features are not covered by the model and that fit to the data is sub-optimal. 
-However over-parameterising the model may lead to over-fitting to the data and therefore deriving false conclusions about the measured sample. 
-The latter issue is particularly problematic for reflectometry data, for which information content/density is typically low. 
+By using too few parameters we risk that important structural features are not covered by the model and that fit to the data is sub-optimal.
+However over-parameterising the model may lead to over-fitting to the data and therefore deriving false conclusions about the measured sample.
+The latter issue is particularly problematic for reflectometry data, for which information content/density is typically low.
 
-Different strategies have been used to address over-fitting in reflectometry. 
-Typically a ``rule of thumb'' of choosing the most simple model that enables a description of the data has been applied. 
-Even though such method is easy to apply, it requires prior knowledge about the sample, e.g. from different experimental technique, and making assumptions about information content in the data, i.e. do we have enough information to support the model?
-The information content can in principle be quantified directly from the data as has been widely demonstrated for small-angle scattering data, which also typically suffers from limited structural information \cite{Larsen_2018} or by validating model given the data. %What does the previous sentence mean, like the 'or by validating model given the data' part?% 
-The example of the latter approach uses Bayesian model selection framework to compare models with different numbers of parameters to determine which offers the maximum information without over-fitting \cite{hughes_model_selection_2019, mccluskey_general_2020}. 
+Different strategies have been used to address over-fitting in reflectometry.
+Typically a ``rule of thumb'' of choosing the most simple model that enables a description of the data has been applied.
+Even though such method is easy to apply, it requires prior knowledge about the sample, e.g. from different experimental techniques, and assumptions about information content in the data, i.e. do we have enough information to support the model?
+The information content can in principle be quantified directly from the data as has been widely demonstrated for small-angle scattering data, which also typically suffers from limited structural information \cite{Larsen_2018} or by validating the model given the data. %What does the previous sentence mean, like the 'or by validating model given the data' part?%
+An example of the latter approach uses Bayesian model selection framework to compare models with different numbers of parameters to determine which offers the maximum information without over-fitting \cite{hughes_model_selection_2019, mccluskey_general_2020}.
 While this approach provides rigorous framework for finding an ``optimal'' model it is also important to note that it depends on the prior probabilities chosen for each of the parameters.
-The problem of finding an optimal model can also be inverted to another task of acquiring ``optimal'' data that can support a given model. 
-Treece et al. \cite{Treece_2019} developed a method based on Bayesian statistics and information theory that quantifies information gain from reflectometry experiments with the purpose of guiding experimental design. 
+The problem of finding an optimal model can also be inverted to another task of acquiring ``optimal'' data that can support a given model.
+Treece et al. \cite{Treece_2019} developed a method based on Bayesian statistics and information theory that quantifies information gain from reflectometry experiments with the purpose of guiding experimental design.
 
-Regardless of the method used to mitigate over-fitting, we are limited to information covered by the data. 
-To overcome this limitation one can supplement data with the information from other techniques. 
-This can be done by constraining model parameters with values obtained from other experiments or by simultaneously fitting model against multiple experimental data sets. 
-These can be other reflectometry measurements (e.g. from contrast variation) or from different techniques (e.g. combination of X-ray and neutron reflectometry data). 
-This can however be challenging because various data may differently contribute to the information content and proper reweighing needs to be performed. 
-Bayesian statistics may be alleviate these limitations, however proper frameworks need to be established.   
- 
+Regardless of the method used to mitigate over-fitting, we are limited to information provided by the data.
+To overcome this limitation one can supplement data with information from other techniques.
+This can be done by constraining model parameters with values obtained from other experiments or by simultaneously fitting the model against multiple experimental data sets.
+These can be other reflectometry measurements (e.g. from contrast variation) or from different techniques (e.g. combination of X-ray and neutron reflectometry data).
+This can however be challenging because various data may contribute differently to the information content and proper weighting of the information needs to be performed.
+Bayesian statistics may alleviate these limitations, however proper frameworks need to be established.
+
 \section{Conclusions}
 The aim of this document was to give an introduction to some of the mathematical concepts that underpin modern reflectometry model-dependent analysis.
-We have looked at how reflectometry is calculated from a layer model description of the scattering length density profile, and why the kinematic approach fails.
+We have looked at how reflectometry is calculated from a layer model description of the scattering length density profile, and the limitations of the kinematic approach.
 Then we have discussed the importance of the differential evolution algorithm in reflectometry analysis and detailed the operation of this algorithm.
-Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty quantification for model-dependent analysis, with particular importance for reflectivity discussed.
-While not exhaustive, we hope that this document will give you the confidence and understanding to look in more detail into how the analysis of reflectometry measurements are performed.
+Finally, Markov-chain Monte Carlo was introduced in the context of uncertainty quantification for model-dependent analysis.
+While not exhaustive, we hope that this document will give you the confidence and understanding to look in more detail into the analysis of reflectometry measurements.
 
 \section*{Author Contributions}
-ARM wrote the first draft of this text, with JMCL, JFKC, JHD, ARJN, WP, and TS offering additional content and editing.
-JFKC and TS sourced funding for ARM.
-
+ARM wrote the first draft of this text, with all other authors offering additional content and editing.
 
 \section*{Acknowledgements}
-ARM is supported by the Ada Lovelace Centre -- a joint initiative between the Science and Technology Facilities Council (as part of UK Research and Innovation), Diamond Light Source, and the UK Atomic Energy Authority.
 The authors would like to thank Luke Clifton of ISIS Neutron and Muon Source for insightful input on the manuscript.
 
 
