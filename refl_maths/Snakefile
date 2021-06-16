@@ -12,6 +12,7 @@ rule target:
     run:
         shell(
             """
+            pip install --user matplotlib emcee numpy scipy seaborn refnx==0.18
             pdflatex -interaction=nonstopmode -halt-on-error paper.tex
             bibtex paper.aux
             pdflatex -interaction=nonstopmode -halt-on-error paper.tex
