@@ -12,7 +12,7 @@ ORSO is an open international initiative to ...
 
 ## learn about reflectometry
 
-- [ ] simple intro
+- [X] simple intro
 - [ ] YouTube tutorials
 - text tutorials
 - key publications
