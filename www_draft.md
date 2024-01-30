@@ -54,6 +54,9 @@ ORSO is an open international initiative to ...
 - [ORSO Governing Principles](https://www.reflectometry.org/what_is_orso/ORSO_constitution)
 - how to participate
 - [orso workshops](https://www.reflectometry.org/workshops)
+  - Workshop 23
+  - Workshop 22
+  - etc.
 
 
 ### communication channels
