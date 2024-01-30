@@ -20,6 +20,8 @@ ORSO is an open international initiative to ...
 ### how to get beamtime
 
 - table of reflectometers
+  - neutrons
+  - x-rays
 - [prepare a beamtime](https://www.reflectometry.org/prepare-for-beamtime/)
 
 ### tools
